@@ -1,0 +1,14 @@
+ros-kinetic-iliad-distribution (0.0.2-0xenial) xenial; urgency=high
+
+
+
+ -- Marc Hanheide <marc@hanheide.net>  Wed, 14 Jun 2017 00:00:00 -0000
+
+ros-kinetic-iliad-distribution (0.0.1-0xenial) xenial; urgency=high
+
+  * initial
+  * Contributors: Marc Hanheide
+
+ -- Marc Hanheide <marc@hanheide.net>  Wed, 14 Jun 2017 00:00:00 -0000
+
+
