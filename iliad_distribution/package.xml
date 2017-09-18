@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>iliad_distribution</name>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <description>A meta package for the entire ILIAD distribution</description>
 
   <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
@@ -16,6 +16,11 @@
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>navigation_oru</run_depend>
   <run_depend>spencer_people_tracking_full</run_depend>
+  <run_depend>frongoweb</run_depend>
+  <run_depend>frongo</run_depend>
+  <run_depend>frongoweb</run_depend>
+  <run_depend>hrsi_velocity_costmaps</run_depend>
+  <run_depend>hrsi_launch</run_depend>
 
   <export>
    <metapackage />
