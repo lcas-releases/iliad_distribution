@@ -4,6 +4,8 @@ Changelog for package iliad_distribution
 
 0.0.4 (2017-09-19)
 ------------------
+* added restricted distribution
+* Contributors: Marc Hanheide
 
 0.0.3 (2017-09-18)
 ------------------
