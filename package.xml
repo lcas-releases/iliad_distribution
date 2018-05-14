@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>iliad_distribution</name>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
   <description>A meta package for the entire ILIAD distribution</description>
 
   <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
@@ -27,6 +27,7 @@
   <run_depend>velodyne</run_depend>
   <run_depend>iliad_executive</run_depend>
   <run_depend>iliad_topological</run_depend>
+  <run_depend>coordination_oru_ros</run_depend>
 
   <export>
    <metapackage />
