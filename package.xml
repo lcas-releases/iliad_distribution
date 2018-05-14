@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>iliad_distribution</name>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
   <description>A meta package for the entire ILIAD distribution</description>
 
   <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
@@ -21,6 +21,12 @@
   <run_depend>frongoweb</run_depend>
   <run_depend>hrsi_velocity_costmaps</run_depend>
   <run_depend>hrsi_launch</run_depend>
+  <run_depend>kmo_cpi_interface</run_depend>
+  <run_depend>kmo_fork_control</run_depend>
+  <run_depend>kmo_navserver</run_depend>
+  <run_depend>velodyne</run_depend>
+  <run_depend>iliad_executive</run_depend>
+  <run_depend>iliad_topological</run_depend>
 
   <export>
    <metapackage />
