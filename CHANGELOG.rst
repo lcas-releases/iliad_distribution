@@ -2,6 +2,13 @@
 Changelog for package iliad_distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.5 (2018-05-14)
+------------------
+* updated for new packages
+* Merge branch 'master' of https://gitsvn-nt.oru.se/iliad/software/iliad_metapackage
+* added kmo and velodyne
+* Contributors: Marc Hanheide
+
 0.0.4 (2017-09-19)
 ------------------
 
