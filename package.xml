@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>iliad_restricted</name>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
   <description>A meta package for the restricted ILIAD distribution</description>
 
   <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
@@ -15,8 +15,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>iliad_distribution</run_depend>
-  <run_depend>iliad_smp</run_depend>
-  
+  <run_depend>iliad_smp_global_planner</run_depend>
+  <run_depend>iliad_human_perception_launch</run_depend>
   <export>
    <metapackage />
  </export>
