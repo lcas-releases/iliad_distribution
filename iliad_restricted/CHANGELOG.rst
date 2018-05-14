@@ -2,6 +2,9 @@
 Changelog for package iliad_distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.6 (2018-05-14)
+------------------
+
 0.0.5 (2018-05-14)
 ------------------
 * updated for new packages
