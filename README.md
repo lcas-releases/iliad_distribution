@@ -1,3 +1,31 @@
+## iliad_distribution (kinetic) - 0.0.7-0
+
+The packages in the `iliad_distribution` repository were released into the `kinetic` distro by running `/opt/conda/bin/bloom-release -y -t kinetic -r kinetic iliad_distribution` on `Wed, 16 May 2018 12:39:45 -0000`
+
+These packages were released:
+- `iliad_distribution`
+- `iliad_launch_manipulation`
+- `iliad_launch_navigation`
+- `iliad_launch_system`
+- `iliad_restricted`
+
+Version of package(s) in repository `iliad_distribution`:
+
+- upstream repository: https://gitsvn-nt.oru.se/iliad/software/iliad_metapackage.git
+- release repository: https://github.com/lcas-releases/iliad_distribution.git
+- rosdistro version: `0.0.6-0`
+- old version: `0.0.6-0`
+- new version: `0.0.7-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.4`
+- catkin_pkg version: `0.4.2`
+- rosdep version: `0.12.2`
+- rosdistro version: `0.6.8`
+- vcstools version: `0.1.40`
+
+
 ## iliad_distribution (kinetic) - 0.0.6-0
 
 The packages in the `iliad_distribution` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release -y -t kinetic -r kinetic iliad_distribution` on `Mon, 14 May 2018 17:18:19 -0000`
