@@ -2,6 +2,15 @@
 Changelog for package iliad_distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.7 (2018-05-16)
+------------------
+* changelogs
+* basic structure for packages with launch directories
+* Contributors: Marc Hanheide
+
+* basic structure for packages with launch directories
+* Contributors: Marc Hanheide
+
 0.0.6 (2018-05-14)
 ------------------
 
