@@ -2,6 +2,11 @@
 Changelog for package iliad_distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.7 (2018-05-16)
+------------------
+* changelogs
+* Contributors: Marc Hanheide
+
 0.0.6 (2018-05-14)
 ------------------
 
