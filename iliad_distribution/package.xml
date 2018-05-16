@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <name>iliad_distribution</name>
+  <version>0.0.6</version>
+  <description>A meta package for the entire ILIAD distribution</description>
+
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
+
+  <license>MIT</license>
+
+
+  <url type="website">http://iliad-project.eu/</url>
+
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>navigation_oru</run_depend>
+  <run_depend>spencer_people_tracking_full</run_depend>
+  <run_depend>frongoweb</run_depend>
+  <run_depend>frongo</run_depend>
+  <run_depend>frongoweb</run_depend>
+  <run_depend>hrsi_velocity_costmaps</run_depend>
+  <run_depend>hrsi_launch</run_depend>
+  <run_depend>kmo_cpi_interface</run_depend>
+  <run_depend>kmo_fork_control</run_depend>
+  <run_depend>kmo_navserver</run_depend>
+  <run_depend>velodyne</run_depend>
+  <run_depend>iliad_executive</run_depend>
+  <run_depend>iliad_topological</run_depend>
+  <run_depend>coordination_oru_ros</run_depend>
+
+  <export>
+   <metapackage />
+ </export>
+</package>
