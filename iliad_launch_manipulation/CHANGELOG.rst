@@ -2,6 +2,11 @@
 Changelog for package iliad_launch_manipulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.8 (2018-08-24)
+------------------
+* removed unnecessary ones and added graph_localisation
+* Contributors: Marc Hanheide
+
 0.0.7 (2018-05-16)
 ------------------
 * bugfix about missing catkin dep
