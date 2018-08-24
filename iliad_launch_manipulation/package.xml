@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>iliad_launch_manipulation</name>
-  <version>0.0.7</version>
+  <version>0.0.8</version>
   <description>The iliad_launch_manipulation package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
@@ -49,8 +49,6 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>spencer_people_tracking_full</build_depend>
-  <build_export_depend>spencer_people_tracking_full</build_export_depend>
   <exec_depend>spencer_people_tracking_full</exec_depend>
 
 
