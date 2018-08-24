@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>iliad_distribution</name>
-  <version>0.0.7</version>
+  <version>0.0.8</version>
   <description>A meta package for the entire ILIAD distribution</description>
 
   <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
@@ -17,11 +17,7 @@
   <run_depend>iliad_launch_manipulation</run_depend>
   <run_depend>iliad_launch_navigation</run_depend>
   <run_depend>iliad_launch_system</run_depend>
-  <run_depend>frongoweb</run_depend>
   <run_depend>frongo</run_depend>
-  <run_depend>frongoweb</run_depend>
-  <run_depend>hrsi_velocity_costmaps</run_depend>
-  <run_depend>hrsi_launch</run_depend>
   <run_depend>iliad_executive</run_depend>
   <run_depend>iliad_topological</run_depend>
 
