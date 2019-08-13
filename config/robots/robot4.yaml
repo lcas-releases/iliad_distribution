@@ -1,0 +1,52 @@
+robot4:
+  footprint:
+      {
+       front_left_x: 1.9,
+       front_left_y: 0.3,
+       front_right_x: 1.9,
+       front_right_y: -0.3,
+       rear_left_x: -0.2,
+       rear_left_y: 0.3,
+       rear_right_x: -0.2,
+       rear_right_y: -0.3
+      }
+  controller:
+      {
+       robot_id: 4
+      }
+  tf_prefix:
+       robot4
+  euro_pallet_sdf_node:
+      {
+       depth_frame_id: robot4/asus_fork_rgb_optical_frame,
+      }
+  orunav_vehicle_execution_node:
+    {
+     robot_id: 4,
+     safety_laser_topic: /sensors/laser2d_floor,
+     safety_laser_topic2: /sensors/laser2d_top
+    }
+  euro_pallet_sdf_node:
+     robot_id: 4
+  vehicle_client:
+     robot_id: 4
+  coordination:
+     rosduct:
+        local_services:
+        - [/robot4/compute_task, orunav_msgs/ComputeTask]
+        - [/robot4/execute_task, orunav_msgs/ExecuteTask]
+        - [/robot4/set_task, orunav_msgs/SetTask]
+        - [/robot4/next_task, std_srvs/Empty]
+        local_topics:
+        - [/robot4/control/report, orunav_msgs/RobotReport]
+        # for rviz
+        - [/robot4/visualization_marker, visualization_msgs/Marker]
+        remote_services:
+        - [/maps/static_map, nav_msgs/GetMap]
+        remote_topics:
+        - [/initialpose, geometry_msgs/PoseWithCovarianceStamped]
+        - [/robot4/initialpose, geometry_msgs/PoseWithCovarianceStamped]
+        - [/active_robots, orunav_msgs/ActiveRobots]
+        # from map server
+        - [/maps/map_laser2d, nav_msgs/OccupancyGrid]
+        - [/maps/map_metadata, nav_msgs/MapMetaData]

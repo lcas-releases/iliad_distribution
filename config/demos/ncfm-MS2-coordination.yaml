@@ -1,0 +1,31 @@
+use_sim_time: true
+coordinator_fake_node: 
+  {
+    multiple_vehicles: true, 
+    use_ct: false
+  }
+point_n_click_target_client:
+  load_detect: true
+  load_operation: true
+  multiple_vehicles: true
+  robot_ids: [4,5]
+coordinator:
+  active_robot_ids: []
+  control_period: 1000
+  copy_goal_operation_to_start_operation: false
+  footprint_front_left_x: 1.9
+  footprint_front_left_y: 0.3
+  footprint_front_right_x: 1.9
+  footprint_front_right_y: -0.3
+  footprint_rear_left_x: -0.2
+  footprint_rear_left_y: 0.3
+  footprint_rear_right_x: -0.2
+  footprint_rear_right_y: -0.3
+  forward_model_max_accel: 0.1
+  forward_model_max_vel: 0.3
+  ignore_pick_items: true
+  map_frame_id: map_laser2d
+  missions_file: $(find coordination_oru_ros)/missions/NCFMScenarioMS2Missions.xml
+  report_topic: control/report
+  robot_ids: [4,5]
+  temporal_resolution: 1000.0

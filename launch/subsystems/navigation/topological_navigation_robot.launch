@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!--
+    FIXME: this is a stub, IT WONT WORK! 
+    Basically because by default iliad navigation stacks does not provide classic ROS navigation action servers, 
+    see param move_base_reconf_service
+
+	Launches topological navigation for iliad. Inspired on:
+      https://github.com/LCAS/RASberry/blob/master/rasberry_navigation/launch/topological_navigation_robot.launch
+    But it does not have strands monitored navigation: that's the coordinator's job ?
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+    <arg name="topological_navigation_retries" default="3"/>
+    <arg name="machine" default="localhost" />
+    <arg name="user" default="" />
+    <arg name="move_base_reconf_service" default="DWAPlannerROS" />
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+
+        <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true"/>
+
+        <node pkg="topological_navigation" name="topological_localisation" type="localisation.py" output="screen" respawn="true"/>
+        <node pkg="topological_navigation" name="topological_navigation" type="navigation.py" output="screen" respawn="true">
+            <param name="retries" type="int" value="$(arg topological_navigation_retries)"/>
+            <param name="move_base_reconf_service" type="str" value="$(arg move_base_reconf_service)"/>
+        </node>
+
+
+ 
+    </group>
+
+</launch>

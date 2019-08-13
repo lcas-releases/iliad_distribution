@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 
+        Relays topics and services between a local ROS system (cititruck) and a remote remote server (coordinator)
+    -->
+    <arg name="robot_id" default="1"/>
+    <!-- the IP of the coordination_server rosbridge server -->
+    <arg name="rosbridge_ip" default="$(optenv ROSBRIDGE_IP localhost)" />
+    <!-- the port of the coordination_server rosbridge server -->
+    <arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+
+
+
+    <group ns="$(arg tf_prefix)/coordination">
+        <!-- see robot_websocket_action_adapter.launch for relaying  action servers -->
+
+        <!-- 
+          an example of throttling a local topic to a 
+          namespaced topic to be sent across to the server 
+        -->
+          <node pkg="topic_tools" name="throttle_robot_goal" type="throttle" args="messages /$(arg tf_prefix)/goal 1.0 /move_base_simple/goal" />
+
+        <node pkg="rosduct" name="rosduct" type="rosduct_main.py" output="screen">
+              <rosparam subst_value="True">
+                    rosbridge_ip: $(arg rosbridge_ip)
+                    rosbridge_port: $(arg rosbridge_port)
+              </rosparam>
+        </node>
+    </group>
+</launch>
+
+
+
+
+
+

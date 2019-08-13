@@ -1,0 +1,6 @@
+<launch>
+	<arg name="robot_name"/>
+
+	<node name="record_all_sensors_$(arg robot_name)" pkg="rosbag" type="record" args="-o $(arg robot_name) -b 1024 /tf /tf_static /ndt_mcl_pose /$(arg robot_name)/control/odom /$(arg robot_name)/control/state /$(arg robot_name)/control/encoders /$(arg robot_name)/sensors/asus_fork/depth_registered/image_raw /$(arg robot_name)/sensors/asus_fork/depth_registered/camera_info /$(arg robot_name)/sensors/asus_fork/rgb/camera_info /$(arg robot_name)/sensors/asus_fork/rgb/image_raw/compressed /$(arg robot_name)/sensors/kinect2/hd/camera_info /$(arg robot_name)/sensors/kinect2/hd/image_color/compressed /$(arg robot_name)/sensors/kinect2/sd/camera_info /$(arg robot_name)/sensors/kinect2/sd/image_depth/compressed /$(arg robot_name)/sensors/laser2d_floor /$(arg robot_name)/sensors/laser2d_top /$(arg robot_name)/sensors/velodyne_packets" output="screen" required="true"/>
+
+</launch>

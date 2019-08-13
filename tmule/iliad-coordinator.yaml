@@ -1,0 +1,45 @@
+---
+init_cmd: |
+  #  this variable wasn't defined in old scenarios. This is a safe value for coordination server to use.
+  export FAKE_COORDINATOR=false
+  export COORDINATOR_CLASS="se.oru.coordination.coordinator.ros_coordinator.generic.MainNode"
+  source ./iliad-setup.sh
+  export ROS_MASTER_URI="http://$ROS_MASTER:$ROS_MASTER_COORDINATOR_PORT" 
+  if [[ $ROSDUCT == 'false' ]]; then export ROS_MASTER_URI=http://$ROSBRIDGE_IP:11311; fi
+
+windows:
+- name: roscore
+  panes:
+  - if [[ $ROSDUCT == 'true' ]]; then roscore -v --port=$ROS_MASTER_COORDINATOR_PORT ; else if [ -r `pidof -x roscore` ]; then roscore;  fi ; fi 
+
+- name: ros-setup
+  panes:
+  - sleep 5; roslaunch iliad_launch_system load_params.launch file:="$SCENARIO_NAME_YAML_FILE"
+  - sleep 6; if [[ $ROSDUCT == 'true' ]]; then roslaunch iliad_launch_system rosbridge_websockets.launch  rosbridge_port:=$ROSBRIDGE_PORT; fi 
+  #TODO not used by now
+  #- sleep 7; mkdir -p "$MONGO_PATH" && roslaunch mongodb_store mongodb_store.launch db_path:=$MONGO_PATH
+
+- name: simulation
+  panes:
+  # TODO: if demo: gazebo world
+  - if [[ $SIM == 'true' ]]; then sleep 7; DISPLAY=:0 roslaunch gazebo_ros empty_world.launch world_name:=$WORLD_NAME gui:=$GAZEBO_GUI; fi
+  # TODO: if demo: spawn robots and other elements
+  - if [[ $SIM == 'true' ]]; then sleep 7; roslaunch iliad_launch_system "$SCENARIO_NAME"_spawn.launch ; fi
+
+# TODO: we need to decide how to use TOPO
+#- name: topo_map
+#  panes:
+#  - roslaunch rasberry_navigation topological_map_manager_central.launch map:=$TMAP
+
+- name: 2D_map
+  panes:
+  - sleep 7; roslaunch iliad_launch_system iliad_map_server.launch mapserver_config_file:="$MAP"
+  - sleep 7; roslaunch iliad_launch_system iliad_cliffmap_server.launch cliffmap:="$CLIFFMAP"
+
+- name: coordination_server
+  panes:
+  - sleep 7; roslaunch iliad_launch_system coordination.launch sim:=$SIM fake:=$FAKE_COORDINATOR coordinator_class:="$COORDINATOR_CLASS"
+
+- name: debug
+  panes:
+  - if [[ $RVIZ == 'true' ]]; then sleep 7; DISPLAY=:0 rviz -d $RVIZ_CONFIG; fi 

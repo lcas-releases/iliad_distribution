@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Brings up corresponding robot, according to given model and number.
+	TODO there is no robots/bt/bt.launch !!!!	
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+    <arg name="sim" default="true"/>
+    <arg name="robot_type" default="cititruck"/>
+    <arg name="asus" default="false" />
+    <arg name="velodyne" default="true" />
+    <arg name="kinect2" default="true"/>
+
+    <!-- Usually ok with default value -->
+    <arg name="controller" default="true"/>
+    <!-- Used for manual calibration of sensor joints -->
+    <arg name="calibration_gui" default="false"/>
+
+    <!-- derived args -->
+    <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+    <arg name="xacro_name"   value="iliad_uol_cititruck" if="$(arg is_cititruck)"/>
+
+    <include file="$(find iliad_launch_system)/launch/robots/$(arg robot_type)/$(arg robot_type)_bringup.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>       
+        <arg name="sim" value="$(arg sim)"/>
+
+        <arg name="xacro_name" value="$(arg xacro_name)"/>    
+        <arg name="asus" value="$(arg asus)"/>
+        <arg name="velodyne" value="$(arg velodyne)" />
+        <arg name="kinect2" value="$(arg kinect2)" />
+
+        <arg name="controller" default="$(arg controller)"/>
+        <arg name="calibration_gui" value="$(arg calibration_gui)"/>       
+    </include> 
+
+
+</launch>

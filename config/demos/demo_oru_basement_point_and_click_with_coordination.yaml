@@ -1,0 +1,15 @@
+coordination:
+  coordinator_fake_node: 
+    {
+      multiple_vehicles: true, 
+      use_ct: false
+    }
+  point_n_click_target_client_citi1:
+    load_detect: true
+    load_operation: true
+    multiple_vehicles: true
+    robot_ids: [1,2,4]
+master_sync:
+  sync_topics: [/robot*/tracked_persons*, /robot*/detected_persons*]
+master_discovery:
+  mcast_group: 224.0.0.251

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 
+        Multimaster setup nodes. 
+           Params (sync_topics, sync_topics) should be already set by a rosparam load tag.
+           See folder iliad_launch_system/config/demos for cfg files.
+
+        Remember that multicast requires extra system configuration
+    -->
+
+    <!-- launches zeroconf discovery instead of multicast.  -->
+    <arg name="zeroconf" default="false"/>
+  
+    <group if="$(arg zeroconf)">
+        <node name="master_discovery_zc" pkg="master_discovery_fkie" type="zeroconf" respawn="true" output="log">
+        </node>
+    </group>
+
+    <group unless="$(arg zeroconf)">
+        <node name="master_discovery" pkg="master_discovery_fkie" type="master_discovery" respawn="true" output="log">
+            <!-- mcast_group loaded in yaml file-->
+        </node>
+    </group>
+
+    <!-- sync_topics listed in global rosparam file -->  
+    <node name="master_sync" pkg="master_sync_fkie" type="master_sync"/>
+
+
+</launch>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>iliad_launch_system</name>
+  <version>0.1.0</version>
+  <description>The iliad_launch_system package</description>
+
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>rosduct</exec_depend>
+  <exec_depend>persistent_topics</exec_depend>
+  
+</package>

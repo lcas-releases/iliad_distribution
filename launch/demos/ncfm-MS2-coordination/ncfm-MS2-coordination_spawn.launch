@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+ <!-- 
+     Spawns elements in gazebo simulation.
+     This file contains whatever is not fixed in demo: nfcm-MS2    
+ -->
+ 
+<launch>
+  <!-- Robot poses in gazebo -->
+
+  <arg name="robot4_pose_x" value="3.992443561553955"/>
+  <arg name="robot4_pose_y" value="3.4948835372924805"/>
+  <arg name="robot4_pose_yaw" default="-1.5521551225716244"/>
+
+  <arg name="robot5_pose_x" value="2.0055556297302246"/>
+  <arg name="robot5_pose_y" value="3.975930690765381"/>
+  <arg name="robot5_pose_yaw" default="-1.5524818017464608"/>
+
+  <node name="delete_humans_from_gazebo" pkg="gazebo_models_oru" type="delete_humans_from_gazebo.py" output="screen"/>
+  <!-- This loads robot_description only -->
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot4/robot4.launch">
+        <arg name="sim" value="true"/>
+        <arg name="software" value="false"/>
+  </include>    
+
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch">
+          <arg name="robot_id"      value="4"/>
+          <arg name="robot_pose_x"   value="$(arg robot4_pose_x)"/>
+          <arg name="robot_pose_y"   value="$(arg robot4_pose_y)"/>
+          <arg name="robot_pose_yaw" value="$(arg robot4_pose_yaw)"/>   
+  </include>  
+
+  <!-- This loads robot_description only -->
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot5/robot5.launch">
+        <arg name="sim" value="true"/>
+        <arg name="software" value="false"/>
+  </include>    
+
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch">
+          <arg name="robot_id"      value="5"/>
+          <arg name="robot_pose_x"   value="$(arg robot5_pose_x)"/>
+          <arg name="robot_pose_y"   value="$(arg robot5_pose_y)"/>
+          <arg name="robot_pose_yaw" value="$(arg robot5_pose_yaw)"/>                                                      
+  </include>  
+
+
+  <!-- pallet 1 -->
+  <group ns="pallet1">
+      <param name="tf_prefix" value="pallet1" />
+      <include file="$(find euro_pallet)/launch/euro_pallet.launch" >
+          <arg name="pose_x" value="3.0"/> 
+          <arg name="pose_y" value="12.0"/>
+          <arg name="pose_z" value="0.1"/>
+          <arg name="pose_yaw" default="0.12"/>
+          <arg name="name" value="pallet1" />
+      </include>
+  </group>
+
+  <!-- pallet 2 -->
+  <group ns="pallet2">
+      <param name="tf_prefix" value="pallet2" />
+      <include file="$(find euro_pallet)/launch/euro_pallet.launch">
+          <arg name="pose_x" value="3.0"/>
+          <arg name="pose_y" value="14.0"/>
+          <arg name="pose_z" value="0.1"/>
+          <arg name="pose_yaw" default="0"/>
+          <arg name="name" value="pallet2" />
+      </include>
+  </group>
+
+
+</launch>

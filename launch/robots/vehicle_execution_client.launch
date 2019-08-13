@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches vehicle_execution_client with namespacing
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+    	<!-- TODO Removed citi1_ from node name to make it generic -->    	
+        <node pkg="orunav_vehicle_execution" type="vehicle_execution_client" name="vehicle_client" output="screen">        
+          <!-- targets_file_name is set in  iliad_launch_system/config/robots/cititruck.yaml -->
+          <remap from="report" to ="control/report"/>
+        </node> 
+    </group>
+
+</launch>

@@ -1,0 +1,29 @@
+# This is a really simple simulation to test urdf models and gazebo
+
+---
+init_cmd: |
+  source ~/workspace/patch/devel/setup.bash
+  GAZEBO_GUI=true
+  WORLD_NAME=`rospack find base_simulation`/worlds/ncfm_model_1_actor_short.world
+  SCENARIO_NAME=ncfm-MS2-coordination
+  SCENARIO_NAME_YAML_FILE=`rospack find iliad_launch_system`/config/demos/ncfm-MS2-coordination.yaml
+  RVIZ_CONFIG=~/Desktop/temp.rviz
+  export ROBOT_NO=4; 
+
+windows:
+- name: roscore
+  panes:
+  - roscore
+- name: rosparams
+  panes:  
+  - roslaunch iliad_launch_system load_params.launch file:="$SCENARIO_NAME_YAML_FILE"; roslaunch iliad_launch_system load_params.launch file:="$ROBOT_NAME_YAML_FILE"
+  - roslaunch gazebo_ros empty_world.launch world_name:=$WORLD_NAME gui:=$GAZEBO_GUI
+  - roslaunch iliad_launch_system "$SCENARIO_NAME"_spawn.launch
+  - DISPLAY=:0 rviz -d $RVIZ_CONFIG
+- name: robot
+  panes:  
+  - sleep 2; roslaunch iliad_launch_system robot_bringup.launch robot_id:=$ROBOT_NO robot_type:=cititruck sim:=true  asus:=false velodyne:=true kinect2:=true calibration_gui:=false
+  #- sleep 2; roslaunch iliad_launch_system kinect2_simulation.launch robot_id:=$ROBOT_NO sim:=true
+  - sleep 2; roslaunch hri_simulation simulate_spencer_people_tracker.launch robot_id:=$ROBOT_NO
+  # not working
+  #- sleep 2; roslaunch iliad_human_perception_launch person_detectors.launch robot_name:=robot$ROBOT_NO
