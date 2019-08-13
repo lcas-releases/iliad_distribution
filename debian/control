@@ -1,0 +1,12 @@
+Source: ros-kinetic-iliad-launch-navigation
+Section: misc
+Priority: extra
+Maintainer: Marc Hanheide <marc@hanheide.net>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-coordination-oru-ros, ros-kinetic-iliad-human-perception-launch, ros-kinetic-iliad-smp-global-planner, ros-kinetic-iliad-topological, ros-kinetic-kmo-cpi-interface, ros-kinetic-kmo-fork-control, ros-kinetic-kmo-navserver, ros-kinetic-navigation-oru, ros-kinetic-spencer-people-tracking-full, ros-kinetic-velodyne
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-iliad-launch-navigation
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-coordination-oru-ros, ros-kinetic-iliad-human-perception-launch, ros-kinetic-iliad-smp-global-planner, ros-kinetic-iliad-topological, ros-kinetic-kmo-cpi-interface, ros-kinetic-kmo-fork-control, ros-kinetic-kmo-navserver, ros-kinetic-navigation-oru, ros-kinetic-spencer-people-tracking-full, ros-kinetic-velodyne
+Description: The iliad_launch_navigation package
