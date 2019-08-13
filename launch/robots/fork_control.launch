@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches fork control sw
+-->
+
+<launch>
+    <arg name="robot_type" default="cititruck"/>
+    <arg name="robot_id" default="1"/>
+    
+    <!-- derived args -->
+    <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+
+    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_fork_control.launch" if="$(arg is_cititruck)">
+            <arg name="robot_id" value="$(arg robot_id)"/>        
+    </include>
+
+    <node pkg="kmo_fork_control" type="fork_control_bt_node" name="fork_control" output="screen" unless="$(arg is_cititruck)" ns="robot$(arg robot_id)">
+      <param name="visualize" value="true" />
+      <param name="fork_max_moving_time" value="2.5" />
+      <param name="fork_moving_time_support_to_low" value="0.3" />
+      <param name="delay_support_to_low" value="0.2" />
+    </node>
+
+</launch>

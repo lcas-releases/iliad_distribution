@@ -1,0 +1,88 @@
+robot5:
+  footprint:
+      {
+       front_left_x: 1.9,
+       front_left_y: 0.3,
+       front_right_x: 1.9,
+       front_right_y: -0.3,
+       rear_left_x: -0.2,
+       rear_left_y: 0.3,
+       rear_right_x: -0.2,
+       rear_right_y: -0.3
+      }
+  controller:
+      {
+       robot_id: 5
+      }
+  tf_prefix:
+       robot5
+  euro_pallet_sdf_node:
+      {
+       depth_frame_id: robot5/asus_fork_rgb_optical_frame,
+      }
+  orunav_vehicle_execution_node:
+    {
+     robot_id: 5,
+     safety_laser_topic: /sensors/laser2d_floor,
+     safety_laser_topic2: /sensors/laser2d_top
+    }
+  euro_pallet_sdf_node:
+     robot_id: 5
+  vehicle_client:
+     robot_id: 5
+  coordination:
+     rosduct:
+        local_services:
+        - [/robot5/compute_task, orunav_msgs/ComputeTask]
+        - [/robot5/execute_task, orunav_msgs/ExecuteTask]
+        - [/robot5/set_task, orunav_msgs/SetTask]
+        - [/robot5/next_task, std_srvs/Empty]
+        local_topics:
+        - [/robot5/control/report, orunav_msgs/RobotReport]
+        - [/robot5/control/controller/cmd_vel, geometry_msgs/Twist]
+        # for rviz
+        - [/robot5/visualization_marker, visualization_msgs/Marker]
+        remote_services: []
+        remote_topics:
+        # this one only for uol...
+        - [/robot5/goal,  geometry_msgs/PoseStamped]
+        - [/active_robots, orunav_msgs/ActiveRobots]
+        # from map server
+        - [/maps/map_laser2d, nav_msgs/OccupancyGrid]
+        - [/maps/map_metadata, nav_msgs/MapMetaData]
+        # from Gazebo...
+        - [/clock, rosgraph_msgs/Clock]
+        - [/gazebo/link_states, gazebo_msgs/LinkStates]
+        - [/robot5/joint_states, sensor_msgs/JointState]
+        - [/robot5/odom, nav_msgs/Odometry]
+        - [/robot5/odom_enc, nav_msgs/Odometry]
+        - [/robot5/sensors/laser2d_floor, sensor_msgs/LaserScan]
+        - [/robot5/sensors/laser2d_top, sensor_msgs/LaserScan]
+        - [/robot5/sensors/kinect2/depth/camera_info, sensor_msgs/CameraInfo]
+        - [/robot5/sensors/kinect2/hd/camera_info, sensor_msgs/CameraInfo]
+        - [/robot5/sensors/kinect2/hd/image_color_rect, sensor_msgs/Image]
+        - [/robot5/sensors/kinect2/hd/image_color_rect/compressed, sensor_msgs/CompressedImage]
+        - [/robot5/sensors/kinect2/hd/image_color_rect/compressed/parameter_descriptions,
+          dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/hd/image_color_rect/compressed/parameter_updates, dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/hd/image_color_rect/compressedDepth, sensor_msgs/CompressedImage]
+        - [/robot5/sensors/kinect2/hd/image_color_rect/compressedDepth/parameter_descriptions,
+          dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/hd/iage_color_rect/compressedDepth/parameter_updates,
+          dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/parameter_descriptions, dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/parameter_updates, dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/sd/camera_info, sensor_msgs/CameraInfo]
+        - [/robot5/sensors/kinect2/sd/image_depth_rect, sensor_msgs/Image]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect, sensor_msgs/Image]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect/compressed, sensor_msgs/CompressedImage]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect/compressed/parameter_descriptions,
+          dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect/compressed/parameter_updates, dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect/compressedDepth, sensor_msgs/CompressedImage]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect/compressedDepth/parameter_descriptions,
+          dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/sd/image_ir_rect/compressedDepth/parameter_updates,
+          dynamic_reconfigure/ConfigDescription]
+        - [/robot5/sensors/kinect2/sd/points, sensor_msgs/PointCloud2]
+        - [/robot5/sensors/velodyne/velodyne_points, sensor_msgs/PointCloud2]

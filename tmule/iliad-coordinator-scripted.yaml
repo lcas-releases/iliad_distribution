@@ -1,0 +1,43 @@
+---
+init_cmd: |
+  source ./iliad-setup.sh
+  export ROS_MASTER_URI="http://$ROS_MASTER:$ROS_MASTER_COORDINATOR_PORT" 
+  
+windows:
+- name: roscore
+  panes:
+  - if [[ $ROSDUCT == 'true' ]]; then roscore -v --port=$ROS_MASTER_COORDINATOR_PORT ; else if [ -r `pidof -x roscore` ]; then roscore;  fi ; fi 
+  - htop
+
+- name: ros-setup
+  panes:
+  - sleep 5; roslaunch iliad_launch_system load_params.launch file:="$SCENARIO_NAME_YAML_FILE"
+  - sleep 6; if [[ $ROSDUCT == 'true' ]]; then roslaunch iliad_launch_system rosbridge_websockets.launch  rosbridge_port:=$ROSBRIDGE_PORT; fi 
+  #TODO not used by now
+  #- sleep 7; mkdir -p "$MONGO_PATH" && roslaunch mongodb_store mongodb_store.launch db_path:=$MONGO_PATH
+
+- name: simulation
+  panes:
+  # TODO: if demo: gazebo world
+  - if [[ $SIM == 'true' ]]; then DISPLAY=:0 roslaunch gazebo_ros empty_world.launch world_name:=$WORLD_NAME gui:=$GAZEBO_GUI; fi
+  # TODO: if demo: spawn robots and other elements
+  - if [[ $SIM == 'true' ]]; then roslaunch iliad_launch_system "$SCENARIO_NAME"_spawn.launch ; fi
+
+# TODO: we need to decide how to use TOPO
+#- name: topo_map
+#  panes:
+#  - roslaunch rasberry_navigation topological_map_manager_central.launch map:=$TMAP
+
+- name: 2D_map
+  panes:
+  - roslaunch iliad_launch_system iliad_map_server.launch mapserver_config_file:="$MAP"
+  - sleep 7; roslaunch iliad_launch_system iliad_cliffmap_server.launch cliffmap:="$CLIFFMAP"
+
+
+- name: coordination_server
+  panes:
+  - roslaunch iliad_launch_system coordination-scripted.launch sim:=$SIM fake:=false
+
+- name: debug
+  panes:
+  - if [[ $RVIZ == 'true' ]]; then DISPLAY=:0 rviz -d $RVIZ_CONFIG; fi 

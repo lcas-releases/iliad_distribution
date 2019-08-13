@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches pallet detection software
+	TODO: BT?
+-->
+
+<launch>
+    <arg name="robot_type" default="cititruck"/>
+    <arg name="robot_id" default="1"/>
+    <arg name="has_sensor" default="false"/>
+
+    <!-- derived args -->
+    <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+
+    <group if="$(arg has_sensor)">
+	    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_pallet_detection.launch" if="$(arg is_cititruck)">
+	            <arg name="robot_id" value="$(arg robot_id)"/>        
+	    </include> 
+	</group>
+
+</launch>

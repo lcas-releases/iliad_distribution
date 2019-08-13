@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches sensor driver in charge of detecting pallets with proper namespacing.		
+-->
+
+<launch>
+	<arg name="robot_id" default="1"/>
+	<arg name="sim" default="true"/>
+    
+ 
+     <!-- Default values are usually ok. -->
+    <arg name="has_sensor" default="true"/>
+    <arg name="asus_prefix" default="asus_fork" />
+
+    <!-- Posible options are: orbec | asus  -->
+    <arg name="sensor" default="asus"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <arg name="asus" value="$(eval arg('sensor')=='asus')"/>
+    <arg name="orbec" value="$(eval arg('sensor')=='orbec')"/>
+
+    <group ns="$(arg tf_prefix)/sensors" unless="$(arg sim)">
+    	<group if="$(arg has_sensor)">
+            <param name="tf_prefix" value="$(arg tf_prefix)"/>
+
+            <group if="$(arg asus)">    
+				<!--  TODO: Change after issue 88 is solved ... -->     
+				 <include file="$(find iliad_launch_system)/launch/robots/openni2_tf_prefix.launch">
+      				<arg name="tf_prefix" value="$(arg tf_prefix)" />
+                    <arg name="camera" value="$(arg asus_prefix)" />
+    			</include>
+            </group>
+
+            <group if="$(arg orbec)">    
+                <include file="$(find astra_launch)/launch/astrapro.launch">
+                    <arg name="camera"  value="$(arg asus_prefix)"/> <!-- camera namespace  -->  
+                    <arg name="rgb_frame_id"   value="$(arg tf_prefix)/$(arg asus_prefix)_rgb_optical_frame" />
+                    <arg name="depth_frame_id" value="$(arg tf_prefix)/$(arg asus_prefix)_depth_optical_frame" />
+		    <arg name="publish_tf" value="false"/>
+                </include>
+
+                <include file="$(find astra_launch)/launch/includes/astra_frames.launch">
+                    <arg name="camera" value="$(arg asus_prefix)"/>
+                    <arg name="tf_prefix" value="$(arg tf_prefix)"/> <!-- important! -->
+                </include>
+	                
+	            <group ns="$(arg asus_prefix)">    
+	                <node name="rgb" pkg="usb_cam" type="usb_cam_node" output="screen" respawn="true">
+	                	<param name="~camera_name"  value="rgb"/> 
+	                	<param name="camera_frame_id"  value="$(arg tf_prefix)/$(arg asus_prefix)_rgb_optical_frame"/>
+						<param name="video_device" value="/dev/video0" />
+	                    <param name="image_width" value="640" />
+	                    <param name="image_height" value="480" />
+	                    <param name="pixel_format" value="yuyv" />
+	                    <param name="io_method" value="mmap"/>
+	                </node>
+	            </group>
+            </group>
+
+		</group>  
+	</group>
+
+</launch>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!-- Publishes the URDF description, TF and joints of the robot, and starts ROS multimaster nodes and sensor drivers. -->
+
+<!--  
+  location: ORU
+  type: cititruck
+  sensors: 
+        laser2d_floor   Sick S3000 (safety laser)
+        laser2d_top     LS2000 (nav laser)
+
+  https://gitsvn-nt.oru.se/iliad/software/iliad_metapackage/wikis/naming-conventions-in-iliad
+-->
+
+<launch>
+    <arg name="robot_id" value="1"/>
+    <arg name="asus"     value="false"/>
+    <arg name="velodyne" value="false"/>
+    <arg name="kinect2"  value="false"/>
+    
+    <arg name="sim" default="true"/>
+    <arg name="software" default="true"/>
+    <arg name="calibration_gui" default="false"/>
+
+    <arg name="multimaster" default="false"/>
+    <arg name="zeroconf" default="false"/>
+
+    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck.launch">
+        <arg name="robot_id" value="$(arg robot_id)" />        
+        <arg name="asus" value="$(arg asus)"/>
+        <arg name="velodyne" value="$(arg velodyne)" />
+        <arg name="kinect2" value="$(arg kinect2)" />
+
+        <arg name="multimaster" value="$(arg multimaster)"/>
+        <arg name="zeroconf" value="$(arg zeroconf)"/>
+
+        <arg name="sim" value="$(arg sim)"/>
+        <arg name="controller" default="$(arg software)"/>
+        <arg name="calibration_gui" value="$(arg calibration_gui)"/>
+
+    </include>
+
+    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_software.launch" if="$(arg software)">
+        <arg name="robot_id" value="$(arg robot_id)" />        
+        <arg name="asus" value="$(arg asus)"/>
+    </include>
+
+</launch>
+
+

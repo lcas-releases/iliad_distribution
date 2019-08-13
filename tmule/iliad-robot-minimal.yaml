@@ -1,0 +1,29 @@
+---
+init_cmd: |
+  source ./iliad-setup.sh
+  export ROS_MASTER_URI="http://$ROS_MASTER:$ROS_MASTER_COORDINATOR_PORT" 
+
+windows:
+- name: roscore
+  panes:
+  - roscore -v --port=$ROS_MASTER_COORDINATOR_PORT
+
+- name: ros-setup
+  panes:
+  - sleep 5; roslaunch iliad_launch_system load_params.launch file:="$SCENARIO_NAME_YAML_FILE"; roslaunch iliad_launch_system load_params.launch file:="$ROBOT_NAME_YAML_FILE"
+- name: robot
+  panes:
+  - sleep 10; roslaunch iliad_launch_system robot_bringup.launch robot_id:=$ROBOT_NO sim:=$SIM robot_type:=$ROBOT_TYPE  asus:=$PALLET_SENSOR velodyne:=$VELODYNE kinect2:=$KINECT2 calibration_gui:=false
+  - sleep 10; roslaunch  twist_controller telefork.launch
+  # here for the sake of completeness in the tf tree. This should be made by amcl or other loc system
+  - sleep 10; rosrun tf static_transform_publisher 0 0 0 0 0 0 robot$ROBOT_NO/base_footprint_ground_truth robot$ROBOT_NO/odom 20
+  # PLEASE KILL ME AND THROW THE BODY TO THE GOLDEN FISHES...
+  - sleep 10; rosrun tf static_transform_publisher 0.811 -0.042 1.044 1.57  3.14 1.57  robot$ROBOT_NO/base_link robot$ROBOT_NO/kinect2_base_link 200
+- name: sensors
+  panes:
+# TODO: In cititruck this is done by kmo_navserver, which is also a navigation module. This will be revised 
+  - sleep 10; roslaunch iliad_launch_system velodyne.launch      robot_id:=$ROBOT_NO sim:=$SIM has_sensor:=$VELODYNE
+  - sleep 10; roslaunch iliad_launch_system kinect2.launch       robot_id:=$ROBOT_NO sim:=$SIM has_sensor:=$KINECT2
+  - sleep 10; roslaunch iliad_launch_system pallet_sensor.launch robot_id:=$ROBOT_NO sim:=$SIM has_sensor:=$PALLET_SENSOR sensor:=$PALLET_SENSOR_TYPE    
+  - sleep 10; roslaunch iliad_launch_system kmo_navserver.launch robot_id:=$ROBOT_NO sim:=$SIM
+  

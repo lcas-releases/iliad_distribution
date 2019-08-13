@@ -1,0 +1,48 @@
+min_turning_radius: 1.1 #1.5
+wheel_base: 1.190
+sigma_max:  0.80 #0.1736 #1.0 # k^2/sigma_max = theta_lim
+integration_time_step: 0.1
+
+max_planning_duration: 4.0
+valid_state_max_cost: 30 #128
+interpolation_num_poses: 250
+allow_unknown: false
+skip_poses: 0
+display_planner_output: true
+display_planner_graph: false
+cost_thrs: 30.0
+cost_bound_ps: 50.0
+# planner_type, allows you the type of planner to use
+# BFMTstar
+# BITstar
+# CForest
+# FMTstar
+# InformedRRTstar
+# PRMstar
+# LazyPRMstar
+# RRTstar
+# RRTsharp
+# SORRTstar
+# RRTConnect + post smoothing
+# RRTsharp
+# RRTX
+# DRRT
+# PSRRT
+# BiRRTstar
+
+planner_type: "CForest"
+
+# CLiFFRRTstar
+#planner_type: "CLiFFRRTstar"
+
+# steering function type
+# CC for continous curvature
+# ReedsShepp for Reeds Shepp
+# G1_clothoid 
+steering_type: "ReedsShepp"
+
+
+# params for the cliff planning
+# cliff_planning: false
+cliff_env: "/home/pal2rng/.ros/rob_lab_sim"
+cliff_map_from_service: true

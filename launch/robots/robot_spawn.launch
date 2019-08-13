@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Spawns a robot of the specified type, at specified pose.
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+    <arg name="robot_type" default="cititruck"/>
+
+    <arg name="robot_pose_x" default="0"/>
+    <arg name="robot_pose_y" default="0"/>
+    <arg name="robot_pose_yaw" default="0"/>   
+
+
+
+    <!-- derived args -->
+    <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+
+    <include file="$(find iliad_launch_system)/launch/robots/$(arg robot_type)/$(arg robot_type)_spawn.launch" if="$(arg is_cititruck)">
+        <arg name="robot_id" value="$(arg robot_id)"/>       
+        <arg name="robot_pose_x" value="$(arg robot_pose_x)"/>
+        <arg name="robot_pose_y" value="$(arg robot_pose_y)"/>
+        <arg name="robot_pose_yaw" value="$(arg robot_pose_yaw)"/>     
+    </include> 
+
+
+</launch>

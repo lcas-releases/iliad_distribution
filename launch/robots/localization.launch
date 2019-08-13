@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Start rosbag with launchfile-->
+  <arg name="sim" default="false" />
+  <!-- Absolute Path to map to be used for localization. The map needs to be built by graph_fuser package -->
+  <arg name="map_file_path" default="$(find graph_map)/maps/ndt_map.MAP" />
+  <arg name="robot_id" default="1" />
+  <arg name="root_id" default="map_laser2d" />
+  <arg name="method" default="NDT" />
+  
+  <include file="$(find graph_localization)/launch/3d_mcl_ncfm2018.launch" unless="$(arg sim)" if="$(eval arg('method') == 'NDT'">
+  	<arg name="map_file_path" value="$(arg map_file_path)" />
+  	<arg name="robot_id" value="$(arg robot_id)"/> 
+  </include>
+</launch>
+

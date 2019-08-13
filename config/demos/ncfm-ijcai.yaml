@@ -1,0 +1,11 @@
+use_sim_time: true
+coordinator_fake_node: 
+  {
+    multiple_vehicles: true, 
+    use_ct: false
+  }
+point_n_click_target_client:
+  load_detect: true
+  load_operation: true
+  multiple_vehicles: true
+  robot_ids: [4,5]

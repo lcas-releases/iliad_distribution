@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- 
+    Launches fork driver with proper namespacing. 
+-->
+<launch>
+        
+    <arg name="robot_id" default="1" />
+    <arg name="pallet_pointcloud" default="kinect_rgb/depth_registered/points"/>
+
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+            <node pkg="orunav_pallet_detection_sdf" type="euro_pallet_sdf_node" name="euro_pallet_sdf_node">
+                <!--  background_indices_file_name Dmax         visualize         visualize_sdf         removeFloor         sensor_time_offset         residual_thresh         cov_thresh         only_compute_filter_used         depth_frame_id         asus_camera         min_nb_matched_points
+                min_match_nb_points_ratio are set in  iliad_launch_system/config/robots/cititruck.yaml-->
+                <remap from="pointcloud" to="$(arg pallet_pointcloud)"/>            
+                <remap from="filtered_points" to="sensors/asus_fork/filtered_points"/> 
+            </node>
+    </group>
+    
+</launch>

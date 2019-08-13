@@ -1,0 +1,3 @@
+use_sim_time: true
+master_sync:
+  sync_topics: [/robot*/tracked_persons*, /robot*/detected_persons*]

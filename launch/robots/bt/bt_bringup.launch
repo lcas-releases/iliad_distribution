@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Cititruck driver with corresponding topic remappings.
+-->
+
+<launch>
+	<arg name="robot_id" default="3"/>
+
+    <arg name="sim" default="true"/>
+
+    <arg name="xacro_name" default="bt_truck"/>        
+    <arg name="asus" default="false" />
+    <arg name="velodyne" default="false" />
+    <arg name="kinect2" default="false"/>
+
+    <arg name="controller" default="true"/>
+    <!-- Used for manual calibration of sensor joints -->
+    <arg name="calibration_gui" default="false"/>
+
+    <arg name="sim_suffix" value="" unless="$(arg sim)"/>
+    <arg name="sim_suffix" value="_sim" if="$(arg sim)"/>
+
+    
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <arg name="robot_name" value="$(arg tf_prefix)" />                
+    <!-- Used for manual calibration of sensor joints --> 
+    <arg name="calib_file" value="$(find iliad_launch_system)/config/calibration/$(arg robot_name)$(arg sim_suffix).yaml"/>
+    <arg name="use_fixed_joints" default="false" if="$(arg calibration_gui)"/>
+    <arg name="use_fixed_joints" default="true" unless="$(arg calibration_gui)"/>
+
+
+    <!-- Publish URDF description. --> 
+    <include file="$(find iliad_launch_system)/launch/robots/bt/bt_description.launch">
+      <arg name="robot_id" value="$(arg robot_id)"/>
+      <arg name="calib_file" value="$(arg calib_file)" />
+    </include>
+
+    <!-- Load specific CitiTruck params -->
+    <!-- FIXME: For now we load citi-truck's params. This shouldn't affect Orkla data-collection campaign. -->
+    <rosparam command="load" file="$(find iliad_launch_system)/config/robots/bt_sim.yaml" ns="$(arg tf_prefix)" subst_value="true" if="$(arg sim)" />
+    <rosparam command="load" file="$(find iliad_launch_system)/config/robots/bt.yaml" ns="$(arg tf_prefix)" subst_value="true" unless="$(arg sim)" />  
+
+    <group ns="$(arg tf_prefix)">
+        <!-- Publish joint positions (also used for calibration) -->
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+          <param name="use_gui" value="$(arg calibration_gui)"/>
+          <param name="rate" value="30"/>
+          <rosparam command="load" file="$(arg calib_file)"/> <!-- Load zero positions -->
+        </node>
+
+        <!-- Publish TF from static URDF and joints -->
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+          <param name="tf_prefix" value="$(arg robot_name)"/>
+        </node>
+
+    </group>
+
+</launch>

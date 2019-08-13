@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches navigation service  get_path_service with namespacing
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+    <!-- If true we will plan using orunav_motion_planner otherwise use sampling based planners -->
+    <arg name="state_lattice_planning" default="true"/>
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+        
+
+        <node pkg="orunav_motion_planner" type="get_path_service" name="get_path_service" output="screen" if="$(arg state_lattice_planning)">		
+          <!--  model motion_primitives_directory lookup_tables_directory min_incr_path_dist visualize 
+          are set in  iliad_launch_system/config/robots/cititruck.yaml-->
+        </node>
+
+        <!-- Loading parameters for costmap and planners -->
+        <rosparam file="$(find iliad_launch_system)/config/get_path_services/iliad_smp_costmap.yml" command="load" ns="generate_path_iliad/iliad_smp_costmap/"/>
+        <rosparam file="$(find iliad_launch_system)/config/get_path_services/iliad_smp_planner.yml" command="load" ns="generate_path_iliad/iliad_smp"/>
+        <!-- Which planner? Which Steer Function? Are we using CLiFFRRTstar if yes then need to specify how to get cliffmap -->
+        <rosparam ns="generate_path_iliad/iliad_smp"> 
+          planner_type : "RRTstar" 
+          steering_type: "CC"
+          cliff_env: "/home/pal2rng/.ros/rob_lab_sim"
+          cliff_map_from_service: true
+        </rosparam> 
+        <!-- TODO: what about velodyne parameters? -->
+        <node pkg="iliad_smp_global_planner" type="generate_path_iliad" name="generate_path_iliad" output="screen" unless="$(arg state_lattice_planning)">
+          <param name="min_incr_path_dist" value="0.2" />
+          <param name="visualize" value="true" />
+        </node>
+
+    </group>
+
+</launch>

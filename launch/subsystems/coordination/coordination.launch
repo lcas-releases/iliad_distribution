@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 
+    Fleet coordination nodes.
+    Params are set in .$SCENARIO_NAME_YAML_FILE
+    -->
+
+
+    <!--"sim" param not used now...  -->
+    <arg name="sim" default="true"/>
+    <arg name="fake" default="false"/>
+    <arg name="coordinator_class" default="se.oru.coordination.coordinator.ros_coordinator.generic.MainNode"/>
+
+    <node pkg="orunav_coordinator_fake" type="coordinator_fake_node" name="coordinator_fake_node" output="screen" if="$(arg fake)"/>
+    
+    <node name="coordinator" pkg="coordination_oru_ros" type="coordinator" args="$(arg coordinator_class)" output="screen" unless="$(arg fake)">
+      <!-- params moved to $SCENARIO_NAME_YAML_FILE -->
+    </node>
+</launch>

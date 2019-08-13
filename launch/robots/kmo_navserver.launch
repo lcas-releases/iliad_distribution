@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="robot_id" default="1"/>
+  <arg name="sim" default="true" />
+  <arg name="robot_type" default="cititruck"/>
+  <arg name="loc_method" default="kollmorgen" />
+  <!-- derived args -->
+  <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+  <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+
+  <group ns="$(arg tf_prefix)" unless="$(arg sim)">	
+    <node pkg="kmo_navserver" type="kmo_navserver_node" name="kmo_navserver" output="screen">
+      <param name="host" value="192.168.100.100" />
+      <param name="enc" value="true" />
+      <param name="state" value="true" />
+      <param name="laser" value="true" />
+      <param name="sick" value="true" />
+      <param name="steering_fix_wheel_distance" value="1.190" />
+      <param name="steering_fix_wheel_distance_y" value="0.0" />
+      <param name="tf_x" value="1.5" />
+      <param name="tf_y" value="0.0" />
+      <param name="tf_z" value="0.05" />
+
+	    <param name="epu" value="true" if="$(eval arg('loc_method') == 'NDT')"/>
+ 	    <param name="use_epu_time_offset" value="true" if="$(eval arg('loc_method') == 'NDT')"/>
+ 	    <param name="min_time_loc_delta" value="0.1" if="$(eval arg('loc_method') == 'NDT')"/>
+      
+      <param name="global_frame_id" value="world"/>
+      <param name="base_footprint_frame_id" value="$(arg tf_prefix)/base_footprint"/>
+      <param name="odom_frame_id" value="$(arg tf_prefix)/odom"/>
+      <param name="state_frame_id" value="$(arg tf_prefix)/base_footprint_ground_truth"/>
+
+      <param name="laserscan0_frame_id" value="$(arg tf_prefix)/laser2d_floor_link"  if="$(arg is_cititruck)"/>
+      <param name="laserscan1_frame_id" value="$(arg tf_prefix)/laser2d_top_link"  if="$(arg is_cititruck)"/>
+      
+      <param name="laserscan0_topic_name" value="/$(arg tf_prefix)/sensors/laser2d_floor"  if="$(arg is_cititruck)"/>
+      <param name="laserscan1_topic_name" value="/$(arg tf_prefix)/sensors/laser2d_top"  if="$(arg is_cititruck)"/>
+
+      <!--- BT has reversed these topic names for some reason. -->
+      <param name="laserscan0_frame_id" value="$(arg tf_prefix)/laser2d_top_link" unless="$(arg is_cititruck)"/>
+      <param name="laserscan0_topic_name" value="/$(arg tf_prefix)/sensors/laser2d_top" unless="$(arg is_cititruck)"/>
+
+      <param name="mcl_pose_topic" value="/$(arg tf_prefix)/mcl_pose_estimate" />
+    </node>
+  </group>
+</launch>
+

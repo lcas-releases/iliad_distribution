@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!--
+	Map server using iliad namespacing
+-->
+
+<launch>
+	<arg name="mapserver_config_file" default="empty"/>
+  <arg name="fake_loc" default="true"/>
+	<arg name="map_frame_id" default="map_laser2d"/>
+
+	  <group ns="maps">
+        <node pkg="tf" type="static_transform_publisher" name="map_laser2d_2_world_tfb"
+            args="0.0 0.0 0.0 0.0 0.0 0.0 1.0 /world $(arg map_frame_id) 100" if="$(arg fake_loc)"/>
+
+        <node name="map_server" pkg="map_server" type="map_server" args="$(arg mapserver_config_file)" output="screen">
+            <remap from="map" to ="map_laser2d"/>
+            <param name="frame_id" value="$(arg map_frame_id)"/>
+        </node>
+    </group>
+
+</launch>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- 
+    Launches all the necesary nodes to control cititruck hardware.
+    Should be called by robotX.launch, which should define params depending on configuration.
+-->
+<launch>
+        
+    <arg name="robot_id" default="1" />
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <arg name="asus" default="false" />
+    <arg name="pallet_pointcloud" default="sensors/asus_fork/depth_registered/points"/>
+
+    <!-- TODO we're assuming this also works on the real thing. Add params 
+         Node moved to an independant launch file to be included in tmule scripts easily
+    -->
+    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_fork_control.launch">
+            <arg name="robot_id" value="$(arg robot_id)"/>        
+    </include> 
+
+    <!-- Pallet detection only makes sense with the asus camera -->
+    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_pallet_detection.launch" if="$(arg asus)">
+            <arg name="robot_id" value="$(arg robot_id)"/>   
+    </include> 
+
+    <!-- Navigation Services -->
+    <include file="$(find iliad_launch_system)/launch/robots/get_path_service.launch">
+            <arg name="robot_id" value="$(arg robot_id)"/>   
+    </include> 
+
+    <include file="$(find iliad_launch_system)/launch/robots/polygonconstraint_service.launch">
+            <arg name="robot_id" value="$(arg robot_id)"/>   
+    </include> 
+
+    <include file="$(find iliad_launch_system)/launch/robots/smoothed_path_service.launch">
+            <arg name="robot_id" value="$(arg robot_id)"/>   
+    </include> 
+
+    <include file="$(find iliad_launch_system)/launch/robots/smoothed_straight_service.launch">
+            <arg name="robot_id" value="$(arg robot_id)"/>   
+    </include> 
+
+    <!-- Navigation "clients" -->
+    <include file="$(find iliad_launch_system)/launch/robots/vehicle_execution_node.launch">
+            <arg name="robot_id" value="$(arg robot_id)"/>   
+    </include> 
+
+</launch>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Spawns cititruck robot model in given coordinates.
+    This launcher requires a model inside a rosparam named /robotX/robot_description.
+    So, this must be launched AFTER cititruck_description.launch, for example. 
+-->
+
+<launch>
+	<arg name="robot_id" default="1"/>
+
+    <arg name="robot_pose_x" default="0"/>
+    <arg name="robot_pose_y" default="0"/>
+    <arg name="robot_pose_yaw" default="0"/>
+
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+
+            <!-- FIXME: Move to scenario launch file -->   
+            <node name="spawn_cititruck_model" pkg="gazebo_ros" type="spawn_model" args="-unpause -urdf -param robot_description -model $(arg tf_prefix) -x $(arg robot_pose_x) -y $(arg robot_pose_y) -z 0 -R 0 -P 0 -Y $(arg robot_pose_yaw) -ros_namespace /gazebo" respawn="false" output="screen" />
+
+    </group>
+
+</launch>

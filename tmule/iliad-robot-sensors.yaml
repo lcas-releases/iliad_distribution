@@ -1,0 +1,42 @@
+---
+init_cmd: |
+  # NOTE:
+  #   This file does not contain simulation parameters or spawns virtual robots.
+  #   Those tasks are performed by the Coordinator tmule file. Coordinator tmule
+  #   file should be launched before this one. It provides:
+  #   - global params. 
+  #   - coordination nodes.
+  #   - gazebo world. 
+  #   
+  #   - Coordinator ROSMASTER_URI wo
+  #   If you are simulating/debugging in a single machine, try using param --session in tmule 
+
+  source ./iliad-setup.sh
+  export ROS_MASTER_URI="http://$ROS_MASTER:$ROS_MASTER_ROBOT_PORT" 
+  if [[ $ROSDUCT == 'false' ]]; then export ROS_MASTER_URI=http://$ROSBRIDGE_IP:11311; fi
+  
+windows:
+- name: roscore
+  panes:
+  - if [[ $ROSDUCT == 'true' ]]; then roscore -v --port=$ROS_MASTER_ROBOT_PORT ; fi 
+  - echo "Go thru the door!"
+ 
+- name: ros-setup
+  panes:
+  - sleep 5; roslaunch iliad_launch_system load_params.launch file:="$SCENARIO_NAME_YAML_FILE"; roslaunch iliad_launch_system load_params.launch file:="$ROBOT_TYPE_YAML_FILE" $ROBOT_NAME; roslaunch iliad_launch_system load_params.launch file:="$ROBOT_NAME_YAML_FILE"
+
+- name: robot
+  panes:
+  -  sleep 6; roslaunch iliad_launch_system robot_bringup.launch robot_id:=$ROBOT_NO sim:=$SIM robot_type:=$ROBOT_TYPE  asus:=$PALLET_SENSOR velodyne:=$VELODYNE kinect2:=$KINECT2
+
+- name: sensors
+  panes:
+  - sleep 5; roslaunch iliad_launch_system velodyne.launch      robot_id:=$ROBOT_NO sim:=$SIM has_sensor:=$VELODYNE
+  - sleep 5; roslaunch iliad_launch_system kinect2.launch       robot_id:=$ROBOT_NO sim:=$SIM has_sensor:=$KINECT2
+  - sleep 5; roslaunch iliad_launch_system pallet_sensor.launch robot_id:=$ROBOT_NO sim:=$SIM has_sensor:=$PALLET_SENSOR sensor:=$PALLET_SENSOR_TYPE    
+
+- name: nav_clients
+  panes:
+  - sleep 5; roslaunch iliad_launch_system vehicle_execution_node.launch   robot_id:=$ROBOT_NO
+  - sleep 5; roslaunch iliad_launch_system kmo_navserver.launch            robot_id:=$ROBOT_NO
+  

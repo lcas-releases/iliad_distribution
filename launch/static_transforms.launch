@@ -1,0 +1,9 @@
+<launch>
+
+  <node name="world2Map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 world map_laser2d 10"/>
+  <node name="map2Robot1Odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map_laser2d robot1/odom 10"/>
+  <node name="map2Robot2Odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map_laser2d robot2/odom 10"/>	
+  <node name="map2Robot3Odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map_laser2d robot3/odom 10"/>	
+
+</launch>
+
