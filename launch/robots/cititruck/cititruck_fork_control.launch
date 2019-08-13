@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!-- 
+    Launches fork driver with proper namespacing. 
+-->
+<launch>
+        
+    <arg name="robot_id" default="1" />
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+        <!-- TODO we're assuming this also works on the real thing. Add params -->
+        <include file="$(find orunav_fork_control)/launch/fork_control_sim.launch">
+            <arg name="cmd_fork_topic" value="/$(arg tf_prefix)/control/controller/cmd_fork" /> 
+            <arg name="topic_prefix"   value="/$(arg tf_prefix)/"/>
+        </include>
+    </group>
+
+</launch>

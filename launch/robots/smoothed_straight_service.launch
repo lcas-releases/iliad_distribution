@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches navigation smoothed_straight_path_service with namespacing
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+        <node pkg="orunav_path_smoother" type="smoothed_straight_path_service" name="smoothed_straight_path_service" output="screen">
+          <!-- visualize is set in  iliad_launch_system/config/robots/cititruck.yaml -->
+        </node>  
+    </group>
+
+</launch>

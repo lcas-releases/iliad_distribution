@@ -1,0 +1,17 @@
+static_map: true
+track_unknown_space: false
+#footprint: [[-0.2, -0.3], [-0.2, 0.3], [1.7, 0.3], [1.7, -0.3]] # previously defined ad 1.9, for citi trucks
+footprint: [[-0.38, -0.45], [-0.38, 0.45], [2.07, 0.45], [2.07, -0.45]] # for bt trucks
+
+global_frame: "/map_laser2d"
+robot_base_frame: "base_footprint_ground_truth"
+publish_frequency: 3.0
+update_frequency: 5.0
+plugins:
+  - {name: static_map, type: "costmap_2d::StaticLayer"}
+  #- {name: inflater, type: "costmap_2d::InflationLayer"}
+
+static_map:
+  track_unknown_space: false
+  map_topic: "/maps/map_laser2d"
+ # map_topic: "/map"

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<!--
+	Map server using iliad namespacing
+-->
+
+<launch>
+  <arg name="cliffmap"/>
+  <node name="cliffmap_server" type="cliffmap_server" pkg="cliffmap_ros" args="$(arg cliffmap)"/>
+</launch>

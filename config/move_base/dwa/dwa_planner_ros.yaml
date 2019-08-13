@@ -1,0 +1,78 @@
+#see http://ros.org/wiki/dwa_local_planner?distro=groovy for param description
+DWAPlannerROS:
+
+# Robot Configuration Parameters
+  min_vel_x: 0.05  # dont go backwards!
+  max_vel_x: 0.35
+
+  min_vel_y: 0.0  # non holonomic
+  max_vel_y: 0.0  # non holonomic
+
+  min_trans_vel: 0.05 # dont go backwards!
+  max_trans_vel: 0.35
+
+  max_rot_vel: 0.4
+  min_rot_vel: -0.4
+
+  rot_stopped_vel: 0.01 #Below what maximum velocity we consider the robot to be stopped in translation", 0.1)
+  trans_stopped_vel: 0.01 #"Below what maximum rotation velocity we consider the robot to be stopped in rotation", 0.1)
+  # DEPRECATED? min_in_place_vel_theta: 0.6  # TrajectoryPlannerRos
+  
+  acc_lim_x: 1.0
+  acc_lim_y: 0.0      # non holonomic
+  acc_limit_trans: 0.5
+  acc_lim_theta: 3.0
+
+
+# Goal Tolerance Parameters
+  yaw_goal_tolerance: 0.3  # 0.05
+  xy_goal_tolerance: 0.15  # 0.10
+  
+  # if the robot ever reaches the goal xy location 
+  #  it will simply rotate in place, 
+  #  even if it ends up outside the goal tolerance
+  latch_xy_goal_tolerance: true
+
+
+# Forward Simulation Parameters
+  sim_time: 3.7       # 1.7
+  vx_samples: 20       # 3
+  vy_samples: 0       # diff drive robot
+  vtheta_samples: 20  # 20
+  vth_samples: 20
+
+
+# Trajectory Scoring Parameters
+
+  # cost =  path_distance_bias * (distance to path from the endpoint of the trajectory in meters)  + 
+  #         goal_distance_bias * (distance to local goal from the endpoint of the trajectory in meters)  + 
+  #         occdist_scale * (maximum obstacle cost along the trajectory in obstacle cost (0-254))
+
+  path_distance_bias: 32.0      # 32.0   - weighting for how much it should stick to the global path plan
+  goal_distance_bias: 24.0      # 24.0   - wighting for how much it should attempt to reach its goal
+  occdist_scale: 0.5            # 0.01   - weighting for how much the controller should avoid obstacles
+
+  forward_point_distance: 0.325 # 0.325  - how far along to place an additional scoring point
+  stop_time_buffer: 0.2         # 0.2    - amount of time a robot must stop in before colliding for a valid traj.
+  scaling_speed: 0.25           # 0.25   - absolute velocity at which to start scaling the robot's footprint
+  max_scaling_factor: 0.2       # 0.2    - how much to scale the robot's footprint when at speed.
+
+  oscillation_reset_dist: 0.15
+  oscillation_timeout: 2.0
+  forward_point_distance: 1.0
+
+  prune_plan: true
+  holonomic_robot: false
+
+# Oscillation Prevention Parameters
+  oscillation_reset_dist: 0.05  # 0.05   - how far to travel before resetting oscillation flags
+
+# Debugging
+  publish_traj_pc : true
+  publish_cost_grid_pc: true
+  global_frame_id: map # this odd - it's used in the trajectory cloud frame id only and for us it refs /map, not /odom
+
+# Differential-drive robot configuration 
+holonomic_robot: false
+# Human aware navigation:
+velocity_costmap_topic: '/velocity_costmap'

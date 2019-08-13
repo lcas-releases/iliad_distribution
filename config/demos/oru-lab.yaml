@@ -1,0 +1,15 @@
+use_sim_time: false
+coordinator_fake_node: 
+  {
+    multiple_vehicles: true, 
+    use_ct: false
+  }
+coordinator:
+  active_robot_ids: [1,2]
+  control_period: 1000
+  copy_goal_operation_to_start_operation: false
+  ignore_pick_items: true
+  map_frame_id: map_laser2d
+  report_topic: control/report
+  robot_ids: [1,2]
+  temporal_resolution: 1000.0

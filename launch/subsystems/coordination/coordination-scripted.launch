@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 
+	coordination.launch with different coordinator class
+        Launch file here for compatibility (don't know who else calls it)
+    -->
+
+
+    <!--"sim" param not used now...  -->
+    <arg name="sim" default="true"/>
+    <arg name="fake" default="false"/>
+
+  <include file="$(find iliad_launch_system)/launch/subsystems/coordination/coordination.launch">
+        <arg name="sim" value="$(arg sim)"/>
+        <arg name="fake" value="$(arg fake)"/>
+        <arg name="coordinator_class" value="se.oru.coordination.coordinator.ros_coordinator.ncfm.NCFMDemoMS2MainNode"/>
+  </include>
+</launch>

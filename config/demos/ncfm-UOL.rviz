@@ -1,0 +1,457 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Grid1/Offset1
+      Splitter Ratio: 0.5
+    Tree Height: 770
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.588679016
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.0299999993
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 10
+        Y: 10
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 20
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /robot4/deps
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /robot4/status
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /robot5/deps
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /robot5/status
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Alpha: 0.0700000003
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /maps/map_laser2d
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 1000
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        map_laser2d:
+          Value: true
+        robot4/base_footprint:
+          Value: true
+        robot4/base_fork:
+          Value: true
+        robot4/base_link:
+          Value: true
+        robot4/fixed_left_wheel_link:
+          Value: true
+        robot4/fixed_right_wheel_link:
+          Value: true
+        robot4/kinect2_depth_optical_frame:
+          Value: true
+        robot4/kinect2_link:
+          Value: true
+        robot4/kinect2_rgb_optical_frame:
+          Value: true
+        robot4/laser2d_floor_link:
+          Value: true
+        robot4/laser2d_top_link:
+          Value: true
+        robot4/left_fork:
+          Value: true
+        robot4/odom_enc:
+          Value: true
+        robot4/right_fork:
+          Value: true
+        robot4/robot4/velodyne:
+          Value: true
+        robot4/robot4/velodyne_base_link:
+          Value: true
+        robot4/sd_wheel_link:
+          Value: true
+        robot4/steer_link:
+          Value: true
+        robot5/base_footprint:
+          Value: true
+        robot5/base_fork:
+          Value: true
+        robot5/base_link:
+          Value: true
+        robot5/fixed_left_wheel_link:
+          Value: true
+        robot5/fixed_right_wheel_link:
+          Value: true
+        robot5/laser2d_floor_link:
+          Value: true
+        robot5/laser2d_top_link:
+          Value: true
+        robot5/left_fork:
+          Value: true
+        robot5/odom_enc:
+          Value: true
+        robot5/right_fork:
+          Value: true
+        robot5/sd_wheel_link:
+          Value: true
+        robot5/steer_link:
+          Value: true
+        world:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: false
+      Show Axes: true
+      Show Names: false
+      Tree:
+        world:
+          map_laser2d:
+            {}
+          robot4/base_footprint:
+            robot4/base_link:
+              robot4/base_fork:
+                robot4/left_fork:
+                  {}
+                robot4/right_fork:
+                  {}
+              robot4/fixed_left_wheel_link:
+                {}
+              robot4/fixed_right_wheel_link:
+                {}
+              robot4/kinect2_link:
+                robot4/kinect2_depth_optical_frame:
+                  {}
+                robot4/kinect2_rgb_optical_frame:
+                  {}
+              robot4/laser2d_floor_link:
+                {}
+              robot4/laser2d_top_link:
+                {}
+              robot4/robot4/velodyne_base_link:
+                robot4/robot4/velodyne:
+                  {}
+              robot4/steer_link:
+                robot4/sd_wheel_link:
+                  {}
+          robot4/odom_enc:
+            {}
+          robot5/base_footprint:
+            robot5/base_link:
+              robot5/base_fork:
+                robot5/left_fork:
+                  {}
+                robot5/right_fork:
+                  {}
+              robot5/fixed_left_wheel_link:
+                {}
+              robot5/fixed_right_wheel_link:
+                {}
+              robot5/laser2d_floor_link:
+                {}
+              robot5/laser2d_top_link:
+                {}
+              robot5/steer_link:
+                robot5/sd_wheel_link:
+                  {}
+          robot5/odom_enc:
+            {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_fork:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fixed_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fixed_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser2d_floor_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser2d_top_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_fork:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_fork:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sd_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        steer_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot4/robot_description
+      TF Prefix: robot4
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_fork:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fixed_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fixed_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser2d_floor_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser2d_top_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_fork:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_fork:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sd_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        steer_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot5/robot_description
+      TF Prefix: robot5
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /robot4/visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /robot5/visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /original_polygon
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: world
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Topic: /initialpose
+    - Class: rviz/SetGoal
+      Topic: /robot4/goal
+    - Class: rviz/SetGoal
+      Topic: /robot5/goal
+    - Class: rviz/SetGoal
+      Topic: /robot3/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 22.4612179
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.0599999987
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: -6.4410305
+        Y: -2.85046268
+        Z: 0.0186047759
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.0500000007
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.00999999978
+      Pitch: 1.56979632
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 1.56182086
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1056
+  Hide Left Dock: false
+  Hide Right Dock: true
+  QMainWindow State: 000000ff00000000fd00000004000000000000016a0000038dfc0200000007fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005300fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000370000038d000000b700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000396fc0200000004fb0000001e0054006f006f006c002000500072006f007000650072007400690065007300000000280000014f0000005300fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000028000000a30000000000000000fb0000000a00560069006500770073000000017d000002410000009b00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003efc0100000002fb0000000800540069006d00650100000000000007800000026000fffffffb0000000800540069006d00650100000000000004500000000000000000000006120000038d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: true
+  Views:
+    collapsed: true
+  Width: 1920
+  X: 0
+  Y: 24

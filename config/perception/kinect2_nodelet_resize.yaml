@@ -1,0 +1,27 @@
+!!python/object/new:dynamic_reconfigure.encoding.Config
+dictitems:
+  groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+    dictitems:
+      groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      height: 540
+      id: 0
+      interpolation: 1
+      name: Default
+      parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      parent: 0
+      scale_height: 0.5
+      scale_width: 0.5
+      state: true
+      type: ''
+      use_scale: false
+      width: 960
+    state: []
+  height: 540
+  interpolation: 1
+  scale_height: 0.5
+  scale_width: 0.5
+  use_scale: false
+  width: 960
+state: []

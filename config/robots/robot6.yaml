@@ -1,0 +1,28 @@
+robot6:
+  footprint:
+      {
+       front_left_x: 2.07,
+       front_left_y: 0.45,
+       front_right_x: 2.07,
+       front_right_y: -0.45,
+       rear_left_x: -0.38,
+       rear_left_y: 0.45,
+       rear_right_x: -0.38,
+       rear_right_y: -0.45
+      }
+  controller:
+      {
+       robot_id: 6
+      }
+  tf_prefix:
+      robot6
+  euro_pallet_sdf_node:
+      {
+       depth_frame_id: robot6/asus_fork_rgb_optical_frame,
+      }
+  orunav_vehicle_execution_node:
+    {
+     robot_id: 6,
+     safety_laser_topic: laser2d_floor,
+     safety_laser_topic2: laser2d_top
+    }

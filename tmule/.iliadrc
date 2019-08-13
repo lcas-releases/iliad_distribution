@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Parameters to define in .iliadrc
+  #  - ROBOT_NAMA"      'robotN' [where N is a numb between 0-9]
+  #  - SCENARIO_NAME  [string] e.g.  ncfm, ncfm_sim, oru_basement ...
+
+ROBOT_NAME="robot1"
+SCENARIO_NAME="ncfm-ijcai"

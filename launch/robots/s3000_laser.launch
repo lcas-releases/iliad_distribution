@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <arg name="robot_id" default="1"/>
+  <arg name="has_sensor" default="false"/>
+  <arg name="sim" default="false" />
+  <arg name="port" default="/dev/ttyUSB0" />
+
+  <node pkg="s3000_laser" type="s3000_laser_node" name="s3000_laser_node" output="screen" if="$(arg has_sensor)">
+  	<param name="port" value="$(arg port)" type="string"/>
+    <param name="baud_rate" value="500000"/>
+
+    <param name="frame_id" value="robot$(arg robot_id)/laser2d_floor_link" type="string" if="$(eval arg('robot_id') == 3 or arg('robot_id') == 6)"/>
+    <param name="frame_id" value="robot$(arg robot_id)/s3000_laser_link" type="string" if="$(eval arg('robot_id') != 3 and arg('robot_id') != 6)"/>
+
+    <remap from="/scan" to="/robot$(arg robot_id)/sensors/laser2d_floor" if="$(eval arg('robot_id') == 3 or arg('robot_id') == 6)"/>
+    <remap from="/scan" to="/robot$(arg robot_id)/sensors/s3000_laser" if="$(eval arg('robot_id') != 3 and arg('robot_id') != 6)"/>
+  </node>
+
+</launch>

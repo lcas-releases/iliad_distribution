@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<!--
+	Launches navigation service  get_path_service with namespacing
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+    <arg name="cliffmap" default="ncfm_pedsim_point5"/>
+    <arg name="sim" default= "false"/>
+
+    <!-- If true we will plan using orunav_motion_planner otherwise use sampling based planners -->
+    <arg name="state_lattice_planning" default="false"/>
+    <arg name="robot_type" default="cititruck"/>
+    <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <group ns="$(arg tf_prefix)">
+
+<!--        <node name="cliffmap_server" pkg="cliffmap_ros" type="cliffmap_server" args="$(find iliad_smp_global_planner)/cliffmaps/$(arg cliffmap).xml" ns="sampling_based_planner/"/> -->
+
+        <node pkg="orunav_motion_planner" type="get_path_service" name="get_path_service_lattice" output="screen" ns="state_lattice_planner">
+          <!--  model motion_primitives_directory lookup_tables_directory min_incr_path_dist visualize
+          are set in  iliad_launch_system/config/robots/cititruck.yaml-->
+          <param name="min_incr_path_dist" value="0.2" />
+          <param name="visualize" value="true" />
+          <param name="motion_primitives_directory" value="$(find orunav_motion_planner)/Primitives/"/>
+          <param name="model" value="CiTiTruck_Expanded10+20_16_1_4.0_0.2.reduced"/>
+          <param name="lookup_tables_directory" value="$(find orunav_motion_planner)/LookupTables/"/>
+        </node>
+
+
+        <!-- Loading parameters for costmap and planners -->
+        <rosparam file="$(find iliad_launch_system)/config/get_path_services/iliad_smp_costmap.yml" command="load" ns="sampling_based_planner/generate_path_iliad_smp/iliad_smp_costmap/" if="$(arg is_cititruck)"/>
+        <rosparam file="$(find iliad_launch_system)/config/get_path_services/iliad_smp_costmap_bt.yml" command="load" ns="sampling_based_planner/generate_path_iliad_smp/iliad_smp_costmap/" unless="$(arg is_cititruck)"/>
+
+        <rosparam file="$(find iliad_launch_system)/config/get_path_services/iliad_smp_planner.yml" command="load" ns="sampling_based_planner/generate_path_iliad_smp/iliad_smp" if="$(arg is_cititruck)"/>
+        <rosparam file="$(find iliad_launch_system)/config/get_path_services/iliad_smp_planner_bt.yml" command="load" ns="sampling_based_planner/generate_path_iliad_smp/iliad_smp"  unless="$(arg is_cititruck)"/>
+
+        <!-- Which planner? Which Steer Function? Are we using CLiFFRRTstar if yes then need to specify how to get cliffmap, We could even do DownCLiFFRRTstar -->
+        <rosparam ns="sampling_based_planner/generate_path_iliad_smp/iliad_smp">
+          planner_type : "DownCLiFFRRTstar"
+          steering_type: "CC"
+          cliff_env: "/home/pal2rng/.ros/ncfm_pedsim_point5"
+          cliff_map_from_service: 1
+        </rosparam>
+
+        <rosparam ns="sampling_based_planner/generate_path_iliad_smp/iliad_smp_costmap/" if="$(arg sim)">
+          robot_base_frame: "base_link"
+        </rosparam>
+
+        <node pkg="iliad_smp_global_planner" type="generate_path_iliad" name="generate_path_iliad_smp" output="screen" ns="sampling_based_planner">
+          <param name="min_incr_path_dist" value="0.2" />
+          <param name="visualize" value="true" />
+          <param name="name_service" value="get_path"/>
+        </node>
+
+        <node name="iliad_hierarchical_planner_node" pkg="iliad_smp_global_planner" type="iliad_hierarchical_planner" output="screen"/>
+
+    </group>
+
+</launch>

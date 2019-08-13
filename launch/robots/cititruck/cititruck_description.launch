@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Publishes urdf description. Usually launched by citirtruck itself, 
+    but in simulation we launch it in advance, so that robots can be spawned
+    by gazebo.
+-->
+
+<launch>
+	<arg name="robot_id" default="1"/>
+
+    <arg name="xacro_name" default="iliad_uol_cititruck"/>        
+    <arg name="asus" default="false" />
+    <arg name="velodyne" default="false" />
+    <arg name="kinect2" default="false"/>
+
+    <!-- Used for manual calibration of sensor joints -->
+    <arg name="calibration_gui" default="false"/>
+    
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <arg name="robot_name" value="$(arg tf_prefix)" />                
+    <!-- Used for manual calibration of sensor joints --> 
+    <arg name="calib_file" default="$(find iliad_launch_system)/config/calibration/$(arg robot_name).yaml"/>
+    <arg name="use_fixed_joints" default="false" if="$(arg calibration_gui)"/>
+    <arg name="use_fixed_joints" default="true" unless="$(arg calibration_gui)"/>
+
+
+    <group ns="$(arg tf_prefix)">
+        <!-- Publish URDF description -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder 
+        '$(find base_simulation)/urdf/$(arg xacro_name).xacro' use_fixed_joints:=$(arg use_fixed_joints) calib_file:=$(arg calib_file) velodyne:=$(arg velodyne) kinect2:=$(arg kinect2) asus:=$(arg asus) asus_name:=asus_fork sick_name:=laser2d_floor ls2000_name:=laser2d_top kinect2_name:=kinect2 tf_prefix:=$(arg tf_prefix) controller_prefix:=control/controller/  sensor_prefix:=sensors/"/>  
+    </group>
+
+</launch>

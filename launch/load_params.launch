@@ -1,0 +1,4 @@
+<launch>
+  <arg name="file" />
+  <rosparam command="load" file="$(arg file)" subst_value="true"/>
+</launch>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches kinect2 driver with proper namespacing.		
+-->
+
+<launch>
+	<arg name="robot_id" default="1"/>
+	<arg name="sim" default="true"/>
+
+    <!-- Default values are usually ok. -->
+    <arg name="has_sensor" default="true"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)/sensors" unless="$(arg sim)">
+        <param name="tf_prefix" value="$(arg tf_prefix)"/>
+
+        <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" if="$(arg has_sensor)">
+            <arg name="base_name"     value="kinect2" /> 
+            <arg name="base_name_tf"  value="$(arg tf_prefix)/kinect2"/>
+            <arg name="depth_method"  value="cuda"/>
+            <arg name="publish_tf"  value="true"/>
+        </include>
+	  
+	</group>
+
+</launch>
