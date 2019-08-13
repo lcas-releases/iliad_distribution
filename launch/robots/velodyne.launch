@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches velodyne driver with proper namespacing.	
+	TODO: do we have different velodynes?
+-->
+
+<launch>
+	<arg name="robot_id" default="1"/>
+	<arg name="sim" default="true"/>
+
+    <!-- Default values are usually ok. -->
+    <!-- Posible options are: VLP16 | 32e  -->
+    <arg name="model" default="VLP16"/> 
+    <arg name="has_sensor" default="true"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)/sensors" unless="$(arg sim)">
+        <param name="tf_prefix" value="$(arg tf_prefix)"/>
+
+        <include file="$(find velodyne_pointcloud)/launch/$(arg model)_points.launch" if="$(arg has_sensor)">
+            <arg name="frame_id"  value="velodyne_link"/>
+        </include>
+	  
+	</group>
+
+</launch>

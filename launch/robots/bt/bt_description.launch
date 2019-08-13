@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Publishes urdf description. Usually launched by citirtruck itself, 
+    but in simulation we launch it in advance, so that robots can be spawned
+    by gazebo.
+-->
+
+<launch>
+	<arg name="robot_id" default="3"/>
+   
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <arg name="robot_name" value="$(arg tf_prefix)" />
+
+    <arg name="calib_file"/>
+
+    <group ns="$(arg tf_prefix)">
+        <!-- Publish URDF description -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder 
+        '$(find cititruck_description)/urdf/bt_truck.xacro' tf_prefix:=$(arg tf_prefix) calib_file:=$(arg calib_file)"/>  
+    </group>
+
+</launch>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches laser drivers in REAL robots	
+	TODO bt is missing
+	FIXME: kmo_navserver is not providing just lasers, but also odometry and tf?
+-->
+
+<launch>
+	<arg name="robot_id" default="1"/>
+	<arg name="sim" default="true"/>
+    <arg name="robot_type" default="cititruck"/>
+
+    <!-- for other cases where lasers are handled independently -->    
+    <arg name="laser2d_floor" default="true"/>
+    <arg name="laser2d_top" default="true"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <arg name="is_cititruck" value="$(eval arg('robot_type')=='cititruck')"/>
+
+    <group ns="$(arg tf_prefix)" unless="$(arg sim)">
+        <param name="tf_prefix" value="$(arg tf_prefix)"/>
+
+	    <include file="$(find iliad_launch_system)/launch/robots/kmo_navserver.launch" if="$(arg is_cititruck)">
+	            <arg name="robot_id" value="$(arg robot_id)"/>        
+	    </include> 
+
+	</group>
+
+</launch>

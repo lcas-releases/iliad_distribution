@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+ <!--       
+
+      ORU basement environment nodes: map server, plus  gazebo world if simulating.
+      Based on cititruck_gazebo cititruck_pallet_basement.launch
+      However, this one does not spawn robots.
+
+ -->
+
+ <launch>
+    <arg name="sim" default="true"/>
+    <arg name="gui" default="true"/>
+
+    
+    <!-- metric map used -->
+    <!-- TODO using same file! -->
+    <arg name="mapserver_config_file" default="$(find gazebo_worlds_oru)/maps/basement.yaml"  if="$(arg sim)"/>
+    <arg name="mapserver_config_file" default="$(find gazebo_worlds_oru)/maps/basement.yaml"  unless="$(arg sim)"/>
+
+
+
+    <!-- Node moved to an independant launch file to be included in tmule scripts easily -->
+    <include file="$(find iliad_launch_system)/launch/sites/iliad_map_server.launch">
+        <arg name="mapserver_config_file" value="$(arg mapserver_config_file)"/>        
+    </include> 
+
+    <group if="$(arg sim)">
+
+        <include file="$(find gazebo_worlds_oru)/launch/basement_world_paused.launch">
+                <arg name="gui" value="$(arg gui)"/>
+        </include>
+
+        <!-- pallet 1 -->
+        <group ns="pallet1">
+            <param name="tf_prefix" value="pallet1" />
+            <include file="$(find euro_pallet)/launch/euro_pallet.launch" >
+                <arg name="pose_x" value="3.0"/> 
+                <arg name="pose_y" value="12.0"/>
+                <arg name="pose_z" value="0.1"/>
+                <arg name="pose_yaw" default="0.12"/>
+                <arg name="name" value="pallet1" />
+            </include>
+        </group>
+
+        <!-- pallet 2 -->
+        <group ns="pallet2">
+            <param name="tf_prefix" value="pallet2" />
+            <include file="$(find euro_pallet)/launch/euro_pallet.launch">
+                <arg name="pose_x" value="3.0"/>
+                <arg name="pose_y" value="14.0"/>
+                <arg name="pose_z" value="0.1"/>
+                <arg name="pose_yaw" default="0"/>
+                <arg name="name" value="pallet2" />
+            </include>
+        </group>
+
+    </group>
+
+</launch>

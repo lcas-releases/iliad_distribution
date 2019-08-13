@@ -1,0 +1,17 @@
+<launch>
+    <arg name="robot_name" default="robot3"/>
+    <arg name="gpu_index" default="0"/>
+
+    <include file="$(find iliad_human_perception_launch)/launch/person_tracking_startup.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="gpu_index" value="$(arg gpu_index)"/>
+
+        <!-- Enable detectors for BT Truck -->
+        <arg name="velodyne" value="true"/>
+        <arg name="laser2d_floor" value="true"/>
+        <arg name="laser2d_top" value="true"/>
+        <arg name="kinect2" value="true"/>
+        <arg name="reflex" value="true"/>
+    </include>
+
+</launch>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+ <!-- 
+     Top level launcher for demo_oru_basement point_and_click.
+     In future versions might be moved to tmux format.
+    
+ -->
+ 
+<launch>
+    
+
+  <!-- Robot poses in gazebo -->
+  <arg name="robot1_pose_x" default="3.5"/>
+  <arg name="robot1_pose_y" default="6"/>
+  <arg name="robot1_pose_yaw" default="1.5"/>
+
+  <arg name="robot2_pose_x" default="7.0"/>
+  <arg name="robot2_pose_y" default="13.0"/>
+  <arg name="robot2_pose_yaw" default="1.5"/>
+
+  <arg name="robot4_pose_x" default="6"/>
+  <arg name="robot4_pose_y" default="6"/>
+  <arg name="robot4_pose_yaw" default="1.5"/>
+
+
+
+ 
+  <!-- This loads robot_description only -->
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot1/robot1.launch">
+        <arg name="sim" value="false"/>
+        <arg name="software" value="false"/>
+  </include>    
+
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch">
+          <arg name="robot_id"      value="1"/>
+          <arg name="robot_pose_x"   value="$(arg robot1_pose_x)"/>
+          <arg name="robot_pose_y"   value="$(arg robot1_pose_y)"/>
+          <arg name="robot_pose_yaw" value="$(arg robot1_pose_yaw)"/>   
+  </include>  
+
+  <!-- This loads robot_description only -->
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot1/robot2.launch">
+        <arg name="sim" value="false"/>
+        <arg name="software" value="false"/>
+  </include>    
+
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch">
+          <arg name="robot_id"      value="2"/>
+          <arg name="robot_pose_x"   value="$(arg robot2_pose_x)"/>
+          <arg name="robot_pose_y"   value="$(arg robot2_pose_y)"/>
+          <arg name="robot_pose_yaw" value="$(arg robot2_pose_yaw)"/>   
+  </include>  
+
+  <!-- This loads robot_description only -->
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot4/robot4.launch">
+        <arg name="sim" value="false"/>
+        <arg name="software" value="false"/>
+  </include>    
+  
+  <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch">
+          <arg name="robot_id"      value="4"/>
+          <arg name="robot_pose_x"   value="$(arg robot4_pose_x)"/>
+          <arg name="robot_pose_y"   value="$(arg robot4_pose_y)"/>
+          <arg name="robot_pose_yaw" value="$(arg robot4_pose_yaw)"/>                                                      
+  </include>  
+
+
+
+  <!-- pallet 1 -->
+  <group ns="pallet1">
+      <param name="tf_prefix" value="pallet1" />
+      <include file="$(find euro_pallet)/launch/euro_pallet.launch" >
+          <arg name="pose_x" value="3.0"/> 
+          <arg name="pose_y" value="12.0"/>
+          <arg name="pose_z" value="0.1"/>
+          <arg name="pose_yaw" default="0.12"/>
+          <arg name="name" value="pallet1" />
+      </include>
+  </group>
+
+  <!-- pallet 2 -->
+  <group ns="pallet2">
+      <param name="tf_prefix" value="pallet2" />
+      <include file="$(find euro_pallet)/launch/euro_pallet.launch">
+          <arg name="pose_x" value="3.0"/>
+          <arg name="pose_y" value="14.0"/>
+          <arg name="pose_z" value="0.1"/>
+          <arg name="pose_yaw" default="0"/>
+          <arg name="name" value="pallet2" />
+      </include>
+  </group>
+
+</launch>

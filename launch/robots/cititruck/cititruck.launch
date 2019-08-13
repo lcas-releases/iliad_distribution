@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<!-- 
+    Launches all the necesary nodes to interface cititruck hardware. 
+    Anything that does not directly interface hardware or emulates hardware should not be here. 
+    Should be called by robotX.launch, which should define params depending on configuration.
+-->
+<launch>
+        
+    <arg name="robot_id" default="1" />
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+    <arg name="robot_name" value="$(arg tf_prefix)" />                
+
+    <arg name="multimaster" default="false"/>
+    <arg name="zeroconf" default="false"/>
+    <arg name="controller" default="true"/>
+
+    <arg name="asus" default="false" />
+    <arg name="velodyne" default="false" />
+    <arg name="kinect2" default="false"/>
+
+    <arg name="sim" default="true"/>
+
+    <arg name="xacro_name" default="iliad_uol_cititruck"/>    
+    
+    <!-- Following parameters used for manual calibration of sensor joints -->
+    <arg name="calibration_gui" default="false"/>
+    
+    <!-- Robot drivers and URDF -->
+    <!-- Node moved to an independant launch file to be included in tmule scripts easily -->
+    <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_bringup.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>        
+        <arg name="sim" value="$(arg sim)"/>
+
+        <arg name="xacro_name" value="$(arg xacro_name)"/>    
+        <arg name="asus" value="$(arg asus)"/>
+        <arg name="velodyne" value="$(arg velodyne)" />
+        <arg name="kinect2" value="$(arg kinect2)" />
+
+        <arg name="controller" value="$(arg controller)"/>
+        <arg name="calibration_gui" value="$(arg calibration_gui)"/>
+    </include>
+    
+    <!-- Robot drivers for the real robot -->
+    <!-- Node moved to independant launch files to be included in tmule scripts easily -->
+    <include file="$(find iliad_launch_system)/launch/robots/lasers.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="sim" value="$(arg sim)"/>
+        <arg name="robot_type" value="cititruck"/>
+    </include> 
+  
+    <include file="$(find iliad_launch_system)/launch/robots/velodyne.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="sim" value="$(arg sim)"/>
+        <arg name="has_sensor" value="$(arg velodyne)"/>        
+    </include> 
+  
+   <include file="$(find iliad_launch_system)/launch/robots/kinect2.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="sim" value="$(arg sim)"/>
+        <arg name="has_sensor" value="$(arg kinect2)"/>
+    </include> 
+  
+   <include file="$(find iliad_launch_system)/launch/robots/pallet_sensor.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="sim" value="$(arg sim)"/>
+        <arg name="has_sensor" value="$(arg asus)"/>
+        <arg name="sensor" value="asus"/>
+    </include> 
+
+    <!-- Multimaster nodes  -->
+    <include file="$(find iliad_launch_system)/launch/subsystems/coordination/multimaster.launch" if="$(arg multimaster)">
+        <arg name="zeroconf" value="$(arg zeroconf)"/>        
+    </include>     
+
+    <!-- FIXME: Why do we load a demo-specific launch file here? Maybe instead, load the params in tmux before starting any other launch file. -->
+    <!--  In multimaster configurations, this ensures coherent configuration-->
+    <group if="$(arg multimaster)">
+        <include file="$(find iliad_launch_system)/launch/demos/demo_oru_basement_point_and_click_with_coordination_rosparams.launch">
+            <arg name="sim"   value="$(arg sim)"/>
+        </include> 
+    </group>  
+
+</launch>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!-- 
+	Launches navigation service  polygonconstraint_service with namespacing
+-->
+
+<launch>
+    <arg name="robot_id" default="1"/>
+
+    <!-- derived args -->
+    <arg name="tf_prefix" value="robot$(arg robot_id)"/>
+
+    <group ns="$(arg tf_prefix)">
+        <node pkg="orunav_constraint_extract" type="polygonconstraint_service" name="polygonconstraint_service" output="screen">
+          <!-- load_type model_type  visualize save_constraints_and_path lookuptables_file 
+                visualize_outer_constraints visualize_only_invalid skip_overlap   save_lookuptables 
+          are set in  iliad_launch_system/config/robots/cititruck.yaml-->
+        </node>  
+    </group>
+
+</launch>

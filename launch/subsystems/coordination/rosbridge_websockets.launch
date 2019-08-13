@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 
+    Fleet coordination nodes.
+    Params should be already set by a rosparam load tag.
+    -->
+
+
+   <arg name="rosbridge_port" default="9090" />
+
+
+   <group ns="coordination/websocket">
+
+          <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
+             <arg name="port" value="$(arg rosbridge_port)"/>
+             <arg name="ssl" value="false"/> <!-- we can enable ssl once the client can speak it -->
+             <arg name="keyfile" value="$(find iliad_launch_system)/config/certs/iliad.key" />
+             <arg name="certfile" value="$(find iliad_launch_system)/config/certs/iliad.crt" />
+          </include>
+
+    </group>
+</launch>

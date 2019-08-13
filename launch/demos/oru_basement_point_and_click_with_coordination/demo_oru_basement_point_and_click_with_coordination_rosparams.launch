@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+ <!-- 
+     ROSPARAM loader. It is called both by global launcher and each robot in case they are using multimaster
+    
+ -->
+ 
+<launch>
+    
+  <!-- ARGUMENTS ...................................................................................................... -->
+
+  <!-- Real or gazebo scenario -->
+  <arg name="sim" default="true"/>
+
+  <!-- Determine file name suffix from flag -->
+  <arg name="suffix" default="_sim" if="$(arg sim)"/>
+  <arg name="suffix" default="" unless="$(arg sim)"/>
+
+
+  <!-- ROSPARAMS......................................................................................................... -->
+
+  <!-- Fleet level params -->
+  <rosparam command="load" file="$(find iliad_launch_system)/config/demos/demo_oru_basement_point_and_click_with_coordination.yaml"/>
+
+  <!-- Robot specific params. These files are also loaded in each individual robot. -->  
+  <!-- Common param for all cititrucks is namespaced to proper robot   -->
+  <!-- TODO: FIXME, the robotX.yaml files would not be needed if we just passed a substitution arg with robot id to the yaml loader. -->
+  <!-- However, substitutions args are currently not supported when loading a YAML file in ROS Kinetic: https://github.com/ros/ros_comm/pull/1354 -->
+  <rosparam command="load" ns="robot1" file="$(find iliad_launch_system)/config/robots/cititruck$(arg suffix).yaml"/>  
+  <rosparam command="load"             file="$(find iliad_launch_system)/config/robots/robot1$(arg suffix).yaml"/>
+
+  <rosparam command="load" ns="robot2" file="$(find iliad_launch_system)/config/robots/cititruck$(arg suffix).yaml"/>  
+  <rosparam command="load"             file="$(find iliad_launch_system)/config/robots/robot2$(arg suffix).yaml"/>
+
+  <rosparam command="load" ns="robot4" file="$(find iliad_launch_system)/config/robots/cititruck$(arg suffix).yaml"/>  
+  <rosparam command="load"             file="$(find iliad_launch_system)/config/robots/robot4$(arg suffix).yaml"/>
+
+</launch>

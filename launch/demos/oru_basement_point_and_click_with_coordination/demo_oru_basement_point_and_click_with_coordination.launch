@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+ <!-- 
+     Top level launcher for demo_oru_basement point_and_click.
+     In future versions might be moved to tmux format.
+    
+ -->
+ 
+<launch>
+    
+  <!-- ARGUMENTS ...................................................................................................... -->
+
+  <!-- Real or gazebo scenario -->
+  <arg name="sim" default="true"/>
+
+  <!-- Show gazebo gui. Set to false on slow machines -->
+  <arg name="gazebo_gui" default="true"/>
+
+  <!-- Show rviz. Useful for debugging -->
+  <arg name="rviz" default="true"/>
+
+  <!-- Do we run with a distributed setup, or on a single machine (e.g. in simulation)? -->
+  <arg name="multimaster" default="false" if="$(arg sim)"/>
+  <arg name="multimaster" default="true" unless="$(arg sim)"/>
+
+  <!-- use zeroconf or multicast in distributed setups -->
+  <arg name="zeroconf" default="false"/>
+  
+
+  <!-- Use different rviz files so that we can see gazebo groundtruths -->
+  <!-- TODO using same file! -->
+  <arg name="rviz_config_file" default="$(find iliad_launch_system)/config/demos/demo_oru_basement_point_and_click_with_coordination.rviz"  if="$(arg sim)"/>
+  <arg name="rviz_config_file" default="$(find cititruck_description)/launch/click_n_pick.rviz"  unless="$(arg sim)"/>
+
+  <!-- Robot poses in gazebo -->
+  <arg name="robot1_pose_x" default="3.5"/>
+  <arg name="robot1_pose_y" default="6"/>
+  <arg name="robot1_pose_yaw" default="1.5"/>
+
+  <arg name="robot2_pose_x" default="7.0"/>
+  <arg name="robot2_pose_y" default="13.0"/>
+  <arg name="robot2_pose_yaw" default="1.5"/>
+
+  <arg name="robot4_pose_x" default="6"/>
+  <arg name="robot4_pose_y" default="6"/>
+  <arg name="robot4_pose_yaw" default="1.5"/>
+
+  <!-- ROSPARAMS......................................................................................................... -->
+
+  <!-- It is a separate launch file so that each robot can include it in case they are using multimaster -->
+  <include file="$(find iliad_launch_system)/launch/demos/oru_basement_point_and_click_with_coordination/demo_oru_basement_point_and_click_with_coordination_rosparams.launch">
+        <arg name="sim"   value="$(arg sim)"/>
+  </include> 
+
+  <!-- INCLUDES ...................................................................................................... -->
+
+
+  <!-- Environment description: map server plus gazebo world if necessary  -->
+  <include file="$(find iliad_launch_system)/launch/sites/oru_basement.launch">
+      <arg name="sim" value="$(arg sim)"/>
+      <arg name="gui" value="$(arg gazebo_gui)"/>
+  </include>
+
+  <!-- Multimaster nodes  -->
+  <group if="$(arg multimaster)">
+      <include file="$(find iliad_launch_system)/launch/subsystems/coordination/multimaster.launch">
+          <arg name="zeroconf" value="$(arg zeroconf)"/>        
+      </include>
+  </group>
+
+  <!-- 
+        All robot related nodes should be launched individually on their own machines.
+        However, if we are simulating everything in a machine we will call these launchers here.
+
+        robotX.launch already runs specific model andcontains sensor configuration.
+        See wiki to check configurations.
+  -->
+  <group unless="$(arg multimaster)">
+          <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot1/robot1.launch">
+                  <arg name="sim" value="$(arg sim)"/>
+                  <arg name="multimaster"   value="$(arg multimaster)"/>               
+                  <arg name="zeroconf"        value="$(arg zeroconf)"/>             
+          </include>  
+          <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch" if="$(arg sim)">
+                  <arg name="robot_id"      value="1"/>
+                  <arg name="robot_pose_x"   value="$(arg robot1_pose_x)"/>
+                  <arg name="robot_pose_y"   value="$(arg robot1_pose_y)"/>
+                  <arg name="robot_pose_yaw" value="$(arg robot1_pose_yaw)"/>   
+          </include>  
+
+          <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot2/robot2.launch">
+                  <arg name="sim" value="$(arg sim)"/>
+                  <arg name="multimaster"   value="$(arg multimaster)"/>               
+                  <arg name="zeroconf"        value="$(arg zeroconf)"/>                               
+          </include>  
+          <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch" if="$(arg sim)">
+                  <arg name="robot_id"      value="2"/>
+                  <arg name="robot_pose_x"   value="$(arg robot2_pose_x)"/>
+                  <arg name="robot_pose_y"   value="$(arg robot2_pose_y)"/>
+                  <arg name="robot_pose_yaw" value="$(arg robot2_pose_yaw)"/>                  
+          </include>  
+
+          <!-- Added to test velodyne and kinect2 topics -->
+          <include file="$(find iliad_launch_system)/launch/robots/cititruck/robot4/robot4.launch">
+                  <arg name="sim" value="$(arg sim)"/>
+                  <arg name="multimaster"   value="$(arg multimaster)"/>               
+                  <arg name="zeroconf"        value="$(arg zeroconf)"/>
+          </include>  
+          <include file="$(find iliad_launch_system)/launch/robots/cititruck/cititruck_spawn.launch" if="$(arg sim)">
+                  <arg name="robot_id"      value="4"/>
+                  <arg name="robot_pose_x"   value="$(arg robot4_pose_x)"/>
+                  <arg name="robot_pose_y"   value="$(arg robot4_pose_y)"/>
+                  <arg name="robot_pose_yaw" value="$(arg robot4_pose_yaw)"/>
+          </include>  
+
+
+  </group>
+
+  <!-- Coordinator nodes -->
+  <include file="$(find iliad_launch_system)/launch/subsystems/coordination/coordination.launch">
+        <arg name="sim" value="$(arg sim)"/>
+  </include>
+
+  <!-- Visualization -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config_file)" if="$(arg rviz)"/>
+
+</launch>
