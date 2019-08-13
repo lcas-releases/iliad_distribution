@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>iliad_launch_navigation</name>
-  <version>0.0.8</version>
+  <version>0.0.7</version>
   <description>The iliad_launch_navigation package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
@@ -13,7 +13,7 @@
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>MIT</license>
+  <license>TODO</license>
 
 
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
@@ -49,6 +49,26 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>coordination_oru_ros</build_depend>
+  <build_depend>iliad_human_perception_launch</build_depend>
+  <build_depend>iliad_smp_global_planner</build_depend>
+  <build_depend>iliad_topological</build_depend>
+  <build_depend>kmo_cpi_interface</build_depend>
+  <build_depend>kmo_fork_control</build_depend>
+  <build_depend>kmo_navserver</build_depend>
+  <build_depend>navigation_oru</build_depend>
+  <build_depend>spencer_people_tracking_full</build_depend>
+  <build_depend>velodyne</build_depend>
+  <build_export_depend>coordination_oru_ros</build_export_depend>
+  <build_export_depend>iliad_human_perception_launch</build_export_depend>
+  <build_export_depend>iliad_smp_global_planner</build_export_depend>
+  <build_export_depend>iliad_topological</build_export_depend>
+  <build_export_depend>kmo_cpi_interface</build_export_depend>
+  <build_export_depend>kmo_fork_control</build_export_depend>
+  <build_export_depend>kmo_navserver</build_export_depend>
+  <build_export_depend>navigation_oru</build_export_depend>
+  <build_export_depend>spencer_people_tracking_full</build_export_depend>
+  <build_export_depend>velodyne</build_export_depend>
   <exec_depend>coordination_oru_ros</exec_depend>
   <exec_depend>iliad_human_perception_launch</exec_depend>
   <exec_depend>iliad_smp_global_planner</exec_depend>
@@ -59,7 +79,6 @@
   <exec_depend>navigation_oru</exec_depend>
   <exec_depend>spencer_people_tracking_full</exec_depend>
   <exec_depend>velodyne</exec_depend>
-  <exec_depend>graph_localization</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
